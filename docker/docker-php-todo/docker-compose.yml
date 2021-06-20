@@ -1,0 +1,27 @@
+version: '2'
+services:
+  web:
+    container_name: app-php-todo
+    build: ./app/
+    image: app-php-todo
+    ports:
+      - "80:80"
+    depends_on: 
+      - mysql
+    volumes:
+      - ~/michael-php/todo-php/todo-php-docker:/var/www/app/
+  mysql:
+    container_name: mysql-php-todo
+    build: ./mysql/
+    image: mysql-php-todo
+    environment:
+      MYSQL_DATABASE: todo
+      MYSQL_USER: naoki
+      MYSQL_PASSWORD: 11922960Kim@
+      MYSQL_ROOT_PASSWORD: 11922960Kim@
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3309:3306"
+    volumes:
+      - ~/michael-php/todo-php/todo-php-docker/docker/docker-php-todo/mysql/db-data:/var/lib/mysql
+
