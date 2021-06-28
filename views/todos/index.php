@@ -16,15 +16,9 @@
         $todoController = new TodoController;
         $todos = $todoController->index();
     ?>
-    <h1>Todoリスト</h1>
-    <form>
-        <input type="text" placeholder="メールチェック">
-        <button>todo作成</button>
-    </form>
     <ul>
-        <h2><?php echo $todos[0]['title'];?></h2>
-        <?php foreach ($todos as $array) : ?>
-            <li><?php echo $array['detail']; ?></li>
+        <?php foreach ($todos as $todo) : ?>
+            <li><?php echo $todo['title']; ?></li>
         <?php endforeach; ?>
     </ul>
 
