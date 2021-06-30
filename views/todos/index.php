@@ -17,9 +17,11 @@
         $todos = $todoController->index();
     ?>
     <ul>
+        <?php var_dump($todos) ?>
         <?php foreach ($todos as $todo) : ?>
-            <li><?php echo $todo['title']; ?></li>
+            <li><a href="./detail.php"><?php echo $todo['title']; ?></a></li>
         <?php endforeach; ?>
+        
     </ul>
 
 

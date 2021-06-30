@@ -7,6 +7,12 @@ class TodoController {
         $todos = $todo->findAll();
         return $todos;
     }
+
+    public function detail(){
+        $todo = new Todo;
+        $details = $todo->findById();
+        return $details;
+    }
 }
 
 
