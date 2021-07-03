@@ -8,9 +8,9 @@ class TodoController {
         return $todos;
     }
 
-    public function detail(){
+    public function detail($todo_id){
         $todo = new Todo;
-        $details = $todo->findById();
+        $details = $todo->findById($todo_id);
         return $details;
     }
 }

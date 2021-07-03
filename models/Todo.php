@@ -21,13 +21,14 @@ class Todo extends BaseModel {
         }
     }
 
-    public function findById(){
+    public function findById($todo_id){
         try {
             $details = $this->getPdoInstance();
             echo "接続成功\n";
 
-            $sqlDetails = 'select * from todos  where user_id=1 and title="本日の仕事"';
+            $sqlDetails = 'select * from todos where user_id=1 and title=:title_id';
             $stmtDetails = $details->prepare($sqlDetails);
+            $stmtDetails->bindValue('title_id', $todo_id, PDO::PARAM_STR);
             $stmtDetails->execute();
             $details = $stmtDetails->fetchAll();
 
