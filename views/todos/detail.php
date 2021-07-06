@@ -2,13 +2,12 @@
 <?php 
     require_once("../../controllers/TodoController.php");
     $todoController = new TodoController;
-    $details = $todoController->detail($_GET["todo_id"]);
+    $details = $todoController->detail();
+    var_dump($details);
 ?>
 
-<?php var_dump($_GET["todo_id"]) ?>
+<?php var_dump($_GET) ?>
 
 <ul>
-    <?php foreach ($details as $detail) : ?>
-        <li><?php echo $detail['detail']; ?></li>
-    <?php endforeach; ?>
+    <li><?php echo $details['detail']; ?></li>
 </ul>

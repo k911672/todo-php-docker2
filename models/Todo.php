@@ -17,7 +17,7 @@ class Todo extends BaseModel {
             return $todos;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
-            exit();
+            return;
         }
     }
 
@@ -30,12 +30,12 @@ class Todo extends BaseModel {
             $stmtDetails = $details->prepare($sqlDetails);
             $stmtDetails->bindValue('title_id', $todo_id, PDO::PARAM_STR);
             $stmtDetails->execute();
-            $details = $stmtDetails->fetchAll();
+            $details = $stmtDetails->fetch();
 
             return $details;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
-            exit();
+            return;
         }
     }
 }

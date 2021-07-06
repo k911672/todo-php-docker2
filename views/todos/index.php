@@ -9,20 +9,18 @@
     <title>Todo</title>
 </head>
 <body>
-
     <?php 
         require_once("../../controllers/TodoController.php");
-
+    
         $todoController = new TodoController;
         $todos = $todoController->index();
     ?>
     <ul>
-        <?php var_dump($_GET) ?>
         <?php foreach ($todos as $todo) : ?>
             <li><a href="./detail.php?todo_id=<? echo $todo['title']?>"><?php echo $todo['title']; ?></a></li>
         <?php endforeach; ?>
-        
+        <li><a href="../error/404.php">エラー</a></li>
     </ul>
-
-
 </body>
+
+
