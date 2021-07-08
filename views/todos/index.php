@@ -17,7 +17,7 @@
     ?>
     <ul>
         <?php foreach ($todos as $todo) : ?>
-            <li><a href="./detail.php?todo_id=<? echo $todo['title']?>"><?php echo $todo['title']; ?></a></li>
+            <li><a href="./detail.php?todo_id=<? echo $todo['id']?>"><?php echo $todo['title']; ?></a></li>
         <?php endforeach; ?>
         <li><a href="../error/404.php">エラー</a></li>
     </ul>

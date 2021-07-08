@@ -6,7 +6,7 @@ class Todo extends BaseModel {
     
     public function findAll(){
         try {
-            $todos = $this->getPdoInstance();
+            $todos = BaseModel::getPdoInstance();
             echo "接続成功\n";
 
             $sqlTodos = 'select * from todos  where user_id=1 and delete_at is null';
@@ -21,14 +21,14 @@ class Todo extends BaseModel {
         }
     }
 
-    public function findById($todo_id){
+    public static function findById($todo_id){
         try {
-            $details = $this->getPdoInstance();
+            $details = BaseModel::getPdoInstance();
             echo "接続成功\n";
 
-            $sqlDetails = 'select * from todos where user_id=1 and title=:title_id';
+            $sqlDetails = 'select title, detail, created_at from todos where user_id=1 and id=:id';
             $stmtDetails = $details->prepare($sqlDetails);
-            $stmtDetails->bindValue('title_id', $todo_id, PDO::PARAM_STR);
+            $stmtDetails->bindValue('id', $todo_id, PDO::PARAM_STR);
             $stmtDetails->execute();
             $details = $stmtDetails->fetch();
 
