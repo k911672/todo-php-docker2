@@ -5,8 +5,5 @@
     $todo = $todoController->detail();
 ?>
 
-<ul>
-    <?php foreach ($todo as $item => $detail) : ?>
-        <li><?php echo $item." : ".$detail; ?></li>
-    <?php endforeach; ?>
-</ul>
+<h1><?php echo $todo['title']; ?></h1>
+<p><?php echo $todo['detail']; ?></p>
