@@ -1,8 +1,8 @@
 
 <?php if(!empty($_POST['title'])):?>
     <?php
-        require("../../models/Todo.php");
-        Todo::insertValue();
+        require("../../controllers/TodoController.php");
+        TodoController::newTodo();
     ?>
 <?php endif; ?>
 

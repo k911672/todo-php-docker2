@@ -20,8 +20,9 @@ class TodoController {
         return $todo;
     }
 
-    public function newTodo(){
-        
+    public static function newTodo(){
+        $todo = Todo::insertValue();
+        return $todo;
     }
 }
 
