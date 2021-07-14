@@ -5,7 +5,7 @@ class BaseModel {
     const DB_USER = 'naoki';
     const DB_PASSWORD = '11922960Kim@';
     
-    public function getPdoInstance(){
+    public function dbConnect(){
         $pdo = new PDO(BaseModel::DB_HOST, BaseModel::DB_USER, BaseModel::DB_PASSWORD,[
             PDO :: ATTR_DEFAULT_FETCH_MODE => PDO :: FETCH_ASSOC,//データベースから返って来る値を連想配列で返す。
             PDO :: ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,//例外を表示する。
