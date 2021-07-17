@@ -21,33 +21,31 @@ class TodoController {
     }
 
     public static function new(){
-        //もしリクエストメソッドがPOSTでなければ、処理終了
-        if(!empty($_GET['title'])){
-            // if (filter_input(INPUT_SERVER, 'SCRIPT_NAME') !== '/todos/new.php') {
-                if(mb_strlen($_GET['title']) >= 10){
-                    // header("Location: ../todos/new.php?title=".$_SERVER['QUERY_STRING']."&detail=".$_SERVER['QUERY_STRING']);
-                    header("Location: ../todos/new.php?title=".$_SERVER['QUERY_STRING']);
-                    exit();
-                }
-                if(mb_strlen($_GET['detail']) >= 25){
-                    // header("Location: ../todos/new.php?title=".$_SERVER['QUERY_STRING']."&detail=".$_SERVER['QUERY_STRING']);
-                    header("Location: ../todos/new.php?title=".$_SERVER['QUERY_STRING']);
-                    exit();
-                }
-            // }
-            Todo::save();
-            header("Location: ../todos/index.php");
+        if($_SERVER["REQUEST_METHOD"] !== "POST"){
+            return;
         }
 
-        //パラメータ取得
-        //バリデーション
-            //もし不正な値なら再度、new.php に遷移させる
-            //入力した内容は、入力欄に保持したい
+        $title = $_POST['title'];
+        $detail = $_POST['detail'];
+        $data = array(
+            'title' => $title,
+            'detail' => $detail
+        );
+        
+        if(mb_strlen($title) >= 10){
+            return $title;
+        }
+        if(mb_strlen($detail) >= 25){
+            return;
+        }
+        if (!Todo::save($data)){
+            return;
+        }
 
+        header("Location: ../todos/index.php");
 
         //もし保存に失敗したら、再度、new.php に遷移させる
         //入力した内容は、入力欄に保持したい
-        //保存に成功したら、TOPに遷移
     }
 }
 

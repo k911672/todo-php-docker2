@@ -1,14 +1,22 @@
-
-
-
-<h1>入力フォーム</h1>
-<form action="./new.php" method="GET">
-    <input type="text" name="title" placeholder="todoを入力" value="<?php if(!empty($_GET['title'])){ echo $_GET['title'];} ?>"><br />
-    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!empty($_GET['detail'])){echo $_GET['detail'];}?></textarea><br />
-    <button type="submit" name="button">登録する</button><br />
-</form>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Todo</title>
+</head>
 
 <?php 
         require("../../controllers/TodoController.php");
         TodoController::new();
 ?>
+
+<h1>入力フォーム</h1>
+<form action="./new.php" method="POST">
+    <input type="text" name="title" placeholder="todoを入力" value="<?php if(!empty($_POST['title'])){ echo $_POST['title'];} ?>"><br />
+    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!empty($_POST['detail'])){echo $_POST['detail'];}?></textarea><br />
+    <button type="submit" name="button">登録する</button><br />
+</form>

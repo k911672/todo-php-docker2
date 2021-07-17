@@ -41,20 +41,20 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function save(){
+    public static function save($data){
         try {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
             $sqlNewsTodos = 'insert into todos(user_id, title, detail) value(1, :title, :detail)';
             $stmtNewTodos = $pdo->prepare($sqlNewsTodos);
-            $stmtNewTodos->bindValue(':title', $_GET['title'], PDO::PARAM_STR);
-            $stmtNewTodos->bindValue(':detail', $_GET['detail'], PDO::PARAM_STR);
+            $stmtNewTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
+            $stmtNewTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
             $stmtNewTodos->execute();
-            return;
+            return true;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
-            return;
+            return false;
         }
     }
 }
