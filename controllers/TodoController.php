@@ -1,5 +1,6 @@
 <?php
 require_once("../../models/Todo.php");
+require_once("../../validations/TodoValidation.php");
 
 class TodoController {
     public function index() {
@@ -21,31 +22,33 @@ class TodoController {
     }
 
     public static function new(){
-        if($_SERVER["REQUEST_METHOD"] !== "POST"){
-            return;
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $title = $_POST['title'];
+            $detail = $_POST['detail'];
+            $data = array(
+                'title' => $title,
+                'detail' => $detail
+            );
+            if(!TodoValidation::check($title, $detail)){
+                return;
+            }
+
+            header("Location: ../todos/index.php");
+
+            if (!Todo::save($data)){
+                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
+                // header("Location: ../todos/new.php?title=*********&detail=********");
+            }
         }
 
-        $title = $_POST['title'];
-        $detail = $_POST['detail'];
+        $title = $_GET['title'];
+        $detail = $_GET['detail'];
         $data = array(
             'title' => $title,
             'detail' => $detail
         );
         
-        if(mb_strlen($title) >= 10){
-            return $title;
-        }
-        if(mb_strlen($detail) >= 25){
-            return;
-        }
-        if (!Todo::save($data)){
-            return;
-        }
-
-        header("Location: ../todos/index.php");
-
-        //もし保存に失敗したら、再度、new.php に遷移させる
-        //入力した内容は、入力欄に保持したい
+        return $data;
     }
 }
 
