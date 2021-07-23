@@ -22,6 +22,8 @@ class TodoController {
     }
 
     public static function new(){
+        session_start();
+
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $title = $_POST['title'];
             $detail = $_POST['detail'];
@@ -30,6 +32,8 @@ class TodoController {
                 'detail' => $detail
             );
             if(!TodoValidation::check($title, $detail)){
+                $_SESSION['errors'] = TodoValidation::$errors;
+                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
                 return;
             }
 
@@ -37,7 +41,6 @@ class TodoController {
 
             if (!Todo::save($data)){
                 header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
-                // header("Location: ../todos/new.php?title=*********&detail=********");
             }
         }
 
