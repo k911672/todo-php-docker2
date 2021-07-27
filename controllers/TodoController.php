@@ -2,6 +2,7 @@
 require_once("../../models/Todo.php");
 require_once("../../validations/TodoValidation.php");
 
+
 class TodoController {
     public function index() {
         $todos = Todo::findAll();
@@ -22,7 +23,7 @@ class TodoController {
     }
 
     public static function new(){
-        session_start();
+        session_start();//ession_start()の位置正しいか今度考える（sessionの値がないと出るため）
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $title = $_POST['title'];
@@ -31,8 +32,10 @@ class TodoController {
                 'title' => $title,
                 'detail' => $detail
             );
-            if(!TodoValidation::check($title, $detail)){
-                $_SESSION['errors'] = TodoValidation::$errors;
+
+            $validation = new TodoValidation;
+            if(!$validation->check($title, $detail)){
+                $_SESSION['errors'] = $validation->errors;
                 header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
                 return;
             }
@@ -44,15 +47,59 @@ class TodoController {
             }
         }
 
+        if(empty($_GET['title'])){
+            $_GET['title']="";
+        }
+        if(empty($_GET['detail'])){
+            $_GET['detail']="";
+        }
         $title = $_GET['title'];
         $detail = $_GET['detail'];
         $data = array(
             'title' => $title,
             'detail' => $detail
         );
-        
         return $data;
     }
+
+    public function edit(){
+        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $title = $_POST['title'];
+            $detail = $_POST['detail'];
+            $todo_id = $_POST['todo_id'];
+            $data = array(
+                'title' => $title,
+                'detail' => $detail,
+                'todo_id' => $todo_id
+            );
+
+            $validation = new TodoValidation;
+            if(!$validation->check($title, $detail)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
+                return;
+            }
+
+            header("Location: ../todos/index.php");
+
+            if (!Todo::edit($data)){
+                header("Location: ../todos/new.php?"."todo_id=".$data['todo_id']."title=".$data['title']."&detail=".$data['detail']);
+            }
+        }
+
+        $title = $_GET['title'];
+        $detail = $_GET['detail'];
+        $todo_id = $_GET['todo_id'];
+        $data = array(
+            'title' => $title,
+            'detail' => $detail,
+            'todo_id' => $todo_id
+        );
+        return $data;
+    }
+
 }
 
 

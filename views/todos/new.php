@@ -12,8 +12,6 @@
 <?php 
         require("../../controllers/TodoController.php");
         $data = TodoController::new();
-
-
 ?>
 
 <h1>入力フォーム</h1>
@@ -22,8 +20,8 @@
     <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!empty($data['detail'])){echo $data['detail'];}?></textarea><br />
     <button type="submit" name="button">登録する</button><br />
 </form>
-<?php foreach ($_SESSION['errors'] as $error) :?>
-    <li><?php echo $error ?></li>        
-<?php endforeach;?>
+<p><?php echo $data['title'];?></p>
 
-<?php unset($_SESSION['errors']);?>
+<?php foreach ($_SESSION['errors'] as $error) :?>
+    <li><?php echo $error ;?></li>        
+<?php endforeach ;?>   

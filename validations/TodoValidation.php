@@ -1,30 +1,28 @@
 <?php
 
 class TodoValidation {
-    public static $errors;
+    public $errors;
 
-    public static function check($title, $detail){
+    public function check($title, $detail){
         if(empty($title)){
-            self::$errors[] = "タイトルをご入力ください。\n";
-            return false;
+            $this->errors[] = "タイトルをご入力ください。\n";
         }
         if(mb_strlen($title) > 10 || empty($title)){
-            self::$errors[] = "タイトルは10文字以内でお願いいたします。\n";
-            return false;
+            $this->errors[] = "タイトルは10文字以内でお願いいたします。\n";
         }
         if(empty($detail) ){
-            self::$errors[] = "詳細をご入力ください\n";
-            return false;
+            $this->errors[] = "詳細をご入力ください\n";
         }
         if(mb_strlen($detail) > 25 || empty($detail) ){
-            self::$errors[] = "詳細は25字以内でお願いいたします。\n";
+            $this->errors[] = "詳細は25字以内でお願いいたします。\n";
+        }
+
+        if(!empty($this->errors)){
             return false;
         }
 
         return true;
     }
-
-    
 }
 
 

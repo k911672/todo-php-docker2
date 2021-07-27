@@ -18,6 +18,7 @@
     <ul>
         <?php foreach ($todos as $todo) : ?>
             <li><a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a></li>
+            <button><a href="./edit.php?title=<?php echo $todo['title']?>&detail=<?php echo $todo['detail']?>&todo_id=<?php echo $todo['id'];?>">編集</a></button>
         <?php endforeach; ?>
     </ul>
     <a href="./new.php">todo登録</a>

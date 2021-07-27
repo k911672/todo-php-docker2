@@ -57,6 +57,24 @@ class Todo extends BaseModel {
             return false;
         }
     }
+
+    public static function edit($data){
+        try {
+            $pdo = BaseModel::dbConnect();
+            echo "接続成功\n";
+
+            $sqlEditTodos = 'update todos set title=:title, detail=:detail where id = :id';
+            $stmtEditTodos = $pdo->prepare($sqlEditTodos);
+            $stmtEditTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
+            $stmtEditTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
+            $stmtEditTodos->bindValue(':id',$data['todo_id'] , PDO::PARAM_STR);
+            $stmtEditTodos->execute();
+            return true;
+        } catch(PDOException $e){
+            echo "接続失敗\n". $e->getMessage()."\n";
+            return false;
+        }
+    }
 }
 
 
