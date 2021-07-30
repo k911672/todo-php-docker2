@@ -40,11 +40,11 @@ class TodoController {
                 return;
             }
 
-            header("Location: ../todos/index.php");
-
             if (!Todo::save($data)){
                 header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
             }
+
+            header("Location: ../todos/index.php");
         }
 
         if(empty($_GET['title'])){
@@ -62,10 +62,10 @@ class TodoController {
         return $data;
     }
 
-    public function edit(){
+    public static function edit(){
         session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
 
-        if($_SERVER["REQUEST_METHOD"] === "POST"){
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
             $title = $_POST['title'];
             $detail = $_POST['detail'];
             $todo_id = $_POST['todo_id'];
@@ -81,22 +81,17 @@ class TodoController {
                 header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
                 return;
             }
-
-            header("Location: ../todos/index.php");
-
-            if (!Todo::edit($data)){
-                header("Location: ../todos/new.php?"."todo_id=".$data['todo_id']."title=".$data['title']."&detail=".$data['detail']);
+            
+            if (!Todo::update($data)){
+                header("Location: ../todos/new.php?"."todo_id=".$data['todo_id']."&title=".$data['title']."&detail=".$data['detail']);
             }
+            
+            header("Location: ../todos/index.php");
+            return $data;
         }
 
-        $title = $_GET['title'];
-        $detail = $_GET['detail'];
         $todo_id = $_GET['todo_id'];
-        $data = array(
-            'title' => $title,
-            'detail' => $detail,
-            'todo_id' => $todo_id
-        );
+        $data = Todo::findById($todo_id);
         return $data;
     }
 

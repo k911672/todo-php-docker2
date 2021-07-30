@@ -58,12 +58,12 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function edit($data){
+    public static function update($data){
         try {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $sqlEditTodos = 'update todos set title=:title, detail=:detail where id = :id';
+            $sqlEditTodos = 'update todos set title=:title, detail=:detail where id=:id';
             $stmtEditTodos = $pdo->prepare($sqlEditTodos);
             $stmtEditTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
