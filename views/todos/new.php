@@ -16,8 +16,8 @@
 
 <h1>入力フォーム</h1>
 <form action="./new.php" method="POST">
-    <input type="text" name="title" placeholder="todoを入力" value="<?php if(!empty($_POST['title'])){ echo $data['title'];} ?>"><br />
-    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!empty($_POST['detail'])){echo $data['detail'];}?></textarea><br />
+    <input type="text" name="title" placeholder="todoを入力" value="<?php if(!isset($_POST['title'])){ echo $data['title'];} ?>"><br />
+    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!isset($_POST['detail'])){echo $data['detail'];}?></textarea><br />
     <button type="submit" name="button">登録する</button><br />
 </form>
 <p><?php echo $data['title'];?></p>

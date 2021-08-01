@@ -15,6 +15,13 @@
         $todoController = new TodoController;
         $todos = $todoController->index();
     ?>
+    <form action="./index.php" method="post">
+        <input type="text" name="search" placeholder="検索"><br />
+        <input type="radio" name="check" value=true> 完了
+        <input type="radio" name="check" value=false> 未完了<br />
+        <button type="submit" name="submit">検索</button>
+    </form>
+
     <ul>
         <?php foreach ($todos as $todo) : ?>
             <li><a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a></li>

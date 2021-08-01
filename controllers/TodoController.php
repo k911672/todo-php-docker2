@@ -63,7 +63,7 @@ class TodoController {
     }
 
     public static function edit(){
-        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
+        session_start();
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $title = $_POST['title'];
@@ -91,8 +91,11 @@ class TodoController {
         }
 
         $todo_id = $_GET['todo_id'];
-        $data = Todo::findById($todo_id);
-        return $data;
+        if($todo = Todo::findById($todo_id)){
+            return $todo;
+        }
+        
+        header('Location: ../error/404.php');
     }
 
 }

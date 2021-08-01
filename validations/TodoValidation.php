@@ -17,6 +17,7 @@ class TodoValidation {
             $this->errors[] = "詳細は25字以内でお願いいたします。\n";
         }
 
+
         if(!empty($this->errors)){
             return false;
         }

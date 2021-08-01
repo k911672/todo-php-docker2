@@ -11,15 +11,15 @@
 
 <?php 
         require("../../controllers/TodoController.php");
-        $data = TodoController::edit();
+        $todo = TodoController::edit();
 ?>
 
 <h1>入力フォーム</h1>
 <form action="./edit.php" method="POST">
-    <input type="text" name="title" placeholder="todoを入力" value="<?php if(!empty($data['title'])){ echo $data['title'];} ?>"><br />
-    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(!empty($data['detail'])){echo $data['detail'];}?></textarea><br />
+    <input type="text" name="title" placeholder="todoを入力" value="<?php if(isset($todo['title'])){ echo $todo['title'];} ?>"><br />
+    <textarea name="detail" placeholder="todoの詳細を記入"><?php if(isset($todo['detail'])){echo $todo['detail'];}?></textarea><br />
     <button type="submit" name="button">登録する</button><br />
-    <input type="hidden" name="todo_id" value="<?php if(!empty($data['todo_id'])){ echo $data['todo_id'];} ?>"><br />
+    <input type="hidden" name="todo_id" value="<?php if(isset($todo['id'])){ echo $todo['id'];} ?>"><br />
 </form>
 
 <?php foreach ($_SESSION['errors'] as $error) :?>
