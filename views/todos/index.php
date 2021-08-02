@@ -11,14 +11,16 @@
 <body>
     <?php 
         require_once("../../controllers/TodoController.php");
-    
         $todoController = new TodoController;
         $todos = $todoController->index();
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            $todos = $todoController->search();
+        }
     ?>
-    <form action="./index.php" method="post">
-        <input type="text" name="search" placeholder="検索"><br />
-        <input type="radio" name="check" value=true> 完了
-        <input type="radio" name="check" value=false> 未完了<br />
+    <form action="./index.php" method="POST">
+        <input type="text" name="title" placeholder="検索"><br />
+        <input type="radio" name="status" value="0" > 未完了
+        <input type="radio" name="status" value="1"> 完了<br />
         <button type="submit" name="submit">検索</button>
     </form>
 
@@ -29,7 +31,6 @@
         <?php endforeach; ?>
     </ul>
     <a href="./new.php">todo登録</a>
-    <!-- <li><?php echo $_SERVER['REQUEST_METHOD']; ?></li> -->
 </body>
 
 

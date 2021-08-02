@@ -22,6 +22,20 @@ class TodoController {
         return $todo;
     }
 
+    public function search(){
+        $title = $_POST["title"];
+        $status = $_POST["status"];
+        if (empty($title) && empty($status)) {
+            header('Location: ../error/404.php');
+        }
+
+        $todo = Todo::findByQuery($title, $status);
+        if (empty($todo)) {
+            header('Location: ../error/404.php');
+        }
+        return $todo;
+    }
+
     public static function new(){
         session_start();//ession_start()の位置正しいか今度考える（sessionの値がないと出るため）
 
@@ -91,11 +105,15 @@ class TodoController {
         }
 
         $todo_id = $_GET['todo_id'];
-        if($todo = Todo::findById($todo_id)){
-            return $todo;
+        if(empty($todo_id)){
+            header('Location: ../error/404.php');
+        }
+
+        $todo = Todo::findById($todo_id);
+        if(empty($todo)){
+            header('Location: ../error/404.php');
         }
         
-        header('Location: ../error/404.php');
     }
 
 }

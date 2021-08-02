@@ -5,7 +5,6 @@ require_once("BaseModel.php");
 
 
 class Todo extends BaseModel {
-    
     public static function findAll(){
         try {
             $pdo = BaseModel::dbConnect();
@@ -34,6 +33,33 @@ class Todo extends BaseModel {
             $stmtDetails->execute();
             $pdo = $stmtDetails->fetch();
 
+            return $pdo;
+        } catch(PDOException $e){
+            echo "接続失敗\n". $e->getMessage()."\n";
+            return;
+        }
+    }
+
+    public static function findByQuery($title, $status){
+        try {
+            $pdo = BaseModel::dbConnect();
+            echo "接続成功\n";
+
+            // if(empty($title) && !empty($status)){
+            //     $sqlQuerys = 'select * from todos where user_id=1 and status=:status';
+            // } 
+            // if(!empty($title) && empty($status)){
+            //     $sqlQuerys = 'select * from todos where user_id=1 and title=:title';
+            // } 
+            // if(!empty($title) && !empty($status)){
+            //     $sqlQuerys = 'select * from todos where user_id=1 and title=:title and status=:status';
+            // }
+            $sqlQuerys = 'select * from todos where user_id=1 and title=:title';
+            $stmtQuerys = $pdo->prepare($sqlQuerys);
+            $stmtQuerys->bindValue(':title', $title, PDO::PARAM_STR);
+            // $stmtQuerys->bindValue(':status', $status, PDO::PARAM_STR);
+            $stmtQuerys->execute();
+            $pdo = $stmtQuerys->fetchAll();
             return $pdo;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
