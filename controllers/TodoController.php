@@ -14,7 +14,7 @@ class TodoController {
         if (empty($todo_id)) {
             header('Location: ../error/404.php');
         }
-
+        
         $todo = Todo::findById($todo_id);
         if (empty($todo)) {
             header('Location: ../error/404.php');
@@ -23,13 +23,45 @@ class TodoController {
     }
 
     public function search(){
-        $title = $_POST["title"];
-        $status = $_POST["status"];
-        if (empty($title) && empty($status)) {
+        $title = $_GET["title"];
+        $status = $_GET["status"];
+
+        if (!isset($title) && !isset($status)) {
             header('Location: ../error/404.php');
         }
 
-        $todo = Todo::findByQuery($title, $status);
+        if(isset($title) && !isset($status)){
+            $sqlQuerys = "select * from todos where user_id=1 and title=:title";
+        } 
+        if(!isset($title) && isset($status)){
+            $sqlQuerys = "select * from todos where user_id=1 and status=:status";
+        } 
+        if(isset($title) && isset($status)){
+            $sqlQuerys = "select * from todos where user_id=1 and title=:title and status=:status";
+        }
+
+        $todo = Todo::findByQuery($sqlQuerys);
+        if (empty($todo)) {
+            header('Location: ../error/404.php');
+        }
+        return $todo;
+    }
+
+    public function sort(){
+        $order = $_GET["order"];
+
+        if (!isset($order)) {
+            header('Location: ../error/404.php');
+        }
+
+        if($order === "asc"){
+            $sqlQuerys = 'select * from todos order by title';
+        } 
+        if($order === "desc"){
+            $sqlQuerys = 'select * from todos order by title desc';
+        } 
+
+        $todo = Todo::findByQuery($sqlQuerys);
         if (empty($todo)) {
             header('Location: ../error/404.php');
         }

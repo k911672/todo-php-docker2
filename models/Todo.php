@@ -40,24 +40,17 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function findByQuery($title, $status){
+    public static function findByQuery($sqlQuerys){
         try {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            // if(empty($title) && !empty($status)){
-            //     $sqlQuerys = 'select * from todos where user_id=1 and status=:status';
-            // } 
-            // if(!empty($title) && empty($status)){
-            //     $sqlQuerys = 'select * from todos where user_id=1 and title=:title';
-            // } 
-            // if(!empty($title) && !empty($status)){
-            //     $sqlQuerys = 'select * from todos where user_id=1 and title=:title and status=:status';
-            // }
-            $sqlQuerys = 'select * from todos where user_id=1 and title=:title';
             $stmtQuerys = $pdo->prepare($sqlQuerys);
-            $stmtQuerys->bindValue(':title', $title, PDO::PARAM_STR);
-            // $stmtQuerys->bindValue(':status', $status, PDO::PARAM_STR);
+            foreach ($_GET as $key => $data) {
+                if(!empty($data) && !empty($key)){
+                    $stmtQuerys->bindValue(':'.$key, $data, PDO::PARAM_STR);
+                }
+            }
             $stmtQuerys->execute();
             $pdo = $stmtQuerys->fetchAll();
             return $pdo;
