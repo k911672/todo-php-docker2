@@ -40,19 +40,21 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function findByQuery($sqlQuerys){
+    public static function findByQuery($query){
         try {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $stmtQuerys = $pdo->prepare($sqlQuerys);
+            $stmtQueries = $pdo->prepare($query);
             foreach ($_GET as $key => $data) {
-                if(!empty($data) && !empty($key)){
-                    $stmtQuerys->bindValue(':'.$key, $data, PDO::PARAM_STR);
+                if(!empty($data) && !empty($key) && $key !== 'row'){
+                    $stmtQueries->bindValue(':'.$key, $data, PDO::PARAM_STR);
                 }
             }
-            $stmtQuerys->execute();
-            $pdo = $stmtQuerys->fetchAll();
+
+            $stmtQueries->execute();
+            $pdo = $stmtQueries->fetchAll();
+
             return $pdo;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";

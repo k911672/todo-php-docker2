@@ -13,25 +13,16 @@
         require_once("../../controllers/TodoController.php");
         $todoController = new TodoController;
         $todos = $todoController->index();
-        if(!empty($_GET["order"])){
-            $todos = $todoController->sort();
-        }
-        if(!empty($_GET['title'] || $_GET['status'])){
-            $todos = $todoController->search();
-        }
+
         
     ?>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
         <input type="radio" name="status" value="0" > 未完了
         <input type="radio" name="status" value="1"> 完了<br />
+        <input type="radio" name="row" value="asc" > 昇順
+        <input type="radio" name="row" value="desc"> 降順<br />
         <button type="submit" name="submit">検索</button>
-    </form>
-
-    <form action="./index.php" method="GET">
-        <input type="radio" name="order" value="asc" > 昇順
-        <input type="radio" name="order" value="desc"> 降順<br />
-        <button type="submit" name="submit">並び替え</button>
     </form>
 
     <ul>
@@ -40,6 +31,7 @@
             <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
         <?php endforeach; ?>
     </ul>
+    <p><?php echo $_GET['row'];?></p>
     <a href="./new.php">todo登録</a>
 </body>
 
