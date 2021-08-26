@@ -67,7 +67,7 @@ class Todo extends BaseModel {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $sqlNewsTodos = 'insert into todos(user_id, title, detail) value(1, :title, :detail)';
+            $sqlNewsTodos = 'insert into todos(user_id, title, detail, status) value(1, :title, :detail, 0)';
             $stmtNewTodos = $pdo->prepare($sqlNewsTodos);
             $stmtNewTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtNewTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
@@ -85,11 +85,35 @@ class Todo extends BaseModel {
             echo "接続成功\n";
 
             $sqlEditTodos = 'update todos set title=:title, detail=:detail where id=:id';
+            // $sqlEditTodos = 'update todos set title=:title, detail=:detail, status=:status where id=:id';
             $stmtEditTodos = $pdo->prepare($sqlEditTodos);
             $stmtEditTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':id',$data['todo_id'] , PDO::PARAM_STR);
+            // $stmtEditTodos->bindValue(':status',$data['status'] , PDO::PARAM_STR);
             $stmtEditTodos->execute();
+            return true;
+        } catch(PDOException $e){
+            echo "接続失敗\n". $e->getMessage()."\n";
+            return false;
+        }
+    }
+
+    public static function updateStatus($data){
+        try {
+            $pdo = BaseModel::dbConnect();
+            echo "接続成功\n";
+
+            $sqlUpdateStatus = 'update todos set status=:status where id=:id';
+            $stmtUpdateStatus = $pdo->prepare($sqlUpdateStatus);
+            $stmtUpdateStatus->bindValue(':id', $data['todo_id'] , PDO::PARAM_STR);
+            if($data['status'] === "0"){
+                $stmtUpdateStatus->bindValue(':status', "1", PDO::PARAM_STR);
+            }
+            if($data['status'] === "1"){
+                $stmtUpdateStatus->bindValue(':status', "0", PDO::PARAM_STR);
+            }
+            $stmtUpdateStatus->execute();
             return true;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";

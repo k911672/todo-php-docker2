@@ -14,9 +14,7 @@
     <?php 
         require_once("../../controllers/TodoController.php");
         $todoController = new TodoController;
-        $todos = $todoController->index();
-
-        
+        $todos = $todoController->index();      
     ?>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
@@ -30,15 +28,19 @@
     <ul>
         <?php foreach ($todos as $todo) : ?>
             <li>
-                <input type="checkbox" id="checkbox" name="checkbox" value="0">
+                <input type="checkbox" id="checkbox" name="checkbox" value=<?php $todo['status']; ?>>
                 <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
             </li>
             <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
         <?php endforeach; ?>
     </ul>
-    <p><?php echo $_GET['row'];?></p>
+
     <a href="./new.php">todo登録</a>
     <script src="../js/main.js"></script>
+
+    <p>1 GET<?php var_dump($_GET)?></p>
+    <p>2 POST<?php var_dump($_POST)?></p>
+    <p>3 todos<?php var_dump($todos)?></p>
 
  
 </body>

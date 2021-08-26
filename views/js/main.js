@@ -1,22 +1,24 @@
 
 $(function(){
     $("#checkbox").click(function(event){
-        let status = $("checkbox").val();
+        let status = $("#checkbox").val();
+        let todo_id = $("#checkbox").index();
         $.ajax({
-            type: "GET",
-            url: "../api/statusUp",
-            data:{"status" : status},
-            dataType: "json"
+            type: "POST",
+            url: "../api/statusUp.php",
+            data:{"status" : status, "todo_id" : todo_id},
+            dataType: "html"
         })
         // Ajaxリクエストが成功した場合
         .done(function(data){
-            if ($(checkbox).is(":checked")) {
-                $(checkbox).closest("p").css("text-decoration", "line-through");
-                data.status = "1"
-            } else {
-                $(this).closest("p").css("text-decoration", "none");
-                data.status = "0"
-            }
+            if(data.result === "1") {
+                $("#checkbox").prop('checked', true);
+                $("#checkbox").closest("li").css("text-decoration", "line-through");
+            } 
+            if(data.result === "0") {
+                $("#checkbox").prop('checked', false);
+                $("#checkbox").closest("li").css("text-decoration", "none");
+            } 
         })
         // Ajaxリクエストが失敗した場合
         .fail(function(XMLHttpRequest, textStatus, errorThrown){

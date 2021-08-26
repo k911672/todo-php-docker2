@@ -28,3 +28,4 @@
 <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>        
 <?php endforeach ;?>   
+
