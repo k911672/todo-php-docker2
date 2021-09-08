@@ -2,12 +2,12 @@
 $(function(){
     $("#checkbox").click(function(event){
         let status = $("#checkbox").val();
-        let todo_id = $("#checkbox").index();
+        let todo_id = $('li.todo').index();
         $.ajax({
             type: "POST",
             url: "../api/statusUp.php",
-            data:{"status" : "1", "todo_id" : todo_id },//todo_idを一旦１にする。
-            dataType: "html"
+            data:{"status" : status, "todo_id" : todo_id },//todo_idを一旦１にする。
+            dataType: "json"
         })
         // Ajaxリクエストが成功した場合
         // .done(function(data){

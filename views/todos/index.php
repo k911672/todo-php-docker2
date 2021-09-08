@@ -11,10 +11,10 @@
     <title>Todo</title>
 </head>
 <body>
-    <?php 
+    <?php
         require_once("../../controllers/TodoController.php");
         $todoController = new TodoController;
-        $todos = $todoController->index();      
+        $todos = $todoController->index();
     ?>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
@@ -24,11 +24,11 @@
         <input type="radio" name="row" value="desc"> 降順<br />
         <button type="submit" name="submit">検索</button>
     </form>
-  
+
     <ul>
         <?php foreach ($todos as $todo) : ?>
-            <li>
-                <input type="checkbox" id="checkbox" name="checkbox" value=<?php $todo['status']; ?>>
+            <li class="todo">
+                <input type="checkbox" id="checkbox" name="checkbox" value="<?php echo $todo['status'] ?>">
                 <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
             </li>
             <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
@@ -41,8 +41,9 @@
     <p>1 GET<?php var_dump($_GET)?></p>
     <p>2 POST<?php var_dump($_POST)?></p>
     <p>3 todos<?php var_dump($todos)?></p>
+    <?php foreach ($todos as $todo) : ?>
+        <p>4 todos<?php var_dump($todo['status'])?></p>
+    <?php endforeach; ?>
 
- 
+
 </body>
-
-
