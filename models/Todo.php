@@ -102,21 +102,15 @@ class Todo extends BaseModel {
     public static function updateStatus($data){
         try {
             $pdo = BaseModel::dbConnect();
-            echo "接続成功\n";
-
+            // echo "接続成功\n"; ajaxの戻り値はechoで返すため、ここでechoは使えない。
             $sqlUpdateStatus = 'update todos set status=:status where id=:id';
             $stmtUpdateStatus = $pdo->prepare($sqlUpdateStatus);
-            $stmtUpdateStatus->bindValue(':id', $data['todo_id'] , PDO::PARAM_STR);
-            if($data['status'] == "0"){
-                $stmtUpdateStatus->bindValue(':status', "1", PDO::PARAM_STR);
-            }
-            if($data['status'] == "1"){
-                $stmtUpdateStatus->bindValue(':status', "0", PDO::PARAM_STR);
-            }
+            $stmtUpdateStatus->bindValue(':id', $data['todo_id'], PDO::PARAM_STR);
+            $stmtUpdateStatus->bindValue(':status', $data["status"], PDO::PARAM_STR);
             $stmtUpdateStatus->execute();
             return true;
         } catch(PDOException $e){
-            echo "接続失敗\n". $e->getMessage()."\n";
+            // echo "接続失敗\n". $e->getMessage()."\n";ajaxの戻り値はechoで返すため、ここでechoは使えない。
             return false;
         }
     }

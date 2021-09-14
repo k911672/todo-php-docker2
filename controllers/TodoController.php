@@ -140,58 +140,8 @@ class TodoController {
     }
 
     public static function updateStatus($data){
-        // session_start();
-
-        // if($_SERVER['REQUEST_METHOD'] === "POST"){
-
-
             Todo::updateStatus($data);
-            // if (!Todo::updateStatus($data)){
-            //     header("Location: ../todos/index.php?"."todo_id=".$data['todo_id']."&status=".$data['status']);
-            // }
-
-            // header("Location: ../todos/index.php");
-            // return $data;
-        // }
-
-        // $todo_id = $_GET['todo_id'];
-        // if(empty($todo_id)){
-        //     header('Location: ../error/404.php');
-        // }
-
-        // $todo = Todo::findById($todo_id);
-        // if(empty($todo)){
-        //     header('Location: ../error/404.php' );
-        // }
-
     }
-
-    // public function updateStatus($status){
-    //     session_start();
-
-    //     if($_SERVER['REQUEST_METHOD'] === "POST"){
-
-    //         if (!Todo::update2($data)){
-    //             header("Location: ../todos/new.php?"."todo_id=".$data['todo_id']."&status=".$data['status']);
-    //         }
-
-    //         header("Location: ../todos/index.php");
-    //         return $data;
-    //     }
-
-    //     $todo_id = $_GET['todo_id'];
-    //     if(empty($todo_id)){
-    //         header('Location: ../error/404.php');
-    //     }
-
-    //     $todo = Todo::findById($todo_id);
-    //     if(empty($todo)){
-    //         header('Location: ../error/404.php');
-    //     }
-
-    // }
-
-
 }
 
 
