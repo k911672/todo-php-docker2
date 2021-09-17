@@ -140,7 +140,20 @@ class TodoController {
     }
 
     public static function updateStatus($data){
-            Todo::updateStatus($data);
+
+        if($data['status'] !== 1 || $data['status'] !== 2 ){
+            return array('result' => "接続が失敗しました。");
+        }
+        if(!is_numeric($data['todo_id']) ){
+            return array('result' => "接続が失敗しました。");
+        }
+
+        $result = Todo::updateStatus($data);
+
+        if($result){
+            return array('result' => "接続が成功しました。", 'todo' => $data);
+        }
+        return array('result' => "接続が失敗しました。");
     }
 }
 

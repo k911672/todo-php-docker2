@@ -16,10 +16,11 @@ $(function(){
             data:{"status" : status, "todo_id" : todo_id },
             dataType: "json"
         }).done(function (data) {
-            if(data.status === "2"){
-                $('#' + data.todo_id).parent().css("text-decoration","line-through");
+            console.log(data.result);
+            if(data.todo.status === "2"){
+                $('#' + data.todo.todo_id).parent().css("text-decoration","line-through");
             } else {
-                $('#' + data.todo_id).parent().css("text-decoration", "none");
+                $('#' + data.todo.todo_id).parent().css("text-decoration", "none");
             };
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert(errorThrown);
