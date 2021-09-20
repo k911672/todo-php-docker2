@@ -8,7 +8,7 @@ $(function(){
         if(checkStatus === true) {
             status = "2";
         } else {
-            status = "1";;
+            status = "1";
         };
         $.ajax({
             type: "POST",
@@ -16,12 +16,16 @@ $(function(){
             data:{"status" : status, "todo_id" : todo_id },
             dataType: "json"
         }).done(function (data) {
-            console.log(data.result);
-            if(data.todo.status === "2"){
-                $('#' + data.todo.todo_id).parent().css("text-decoration","line-through");
-            } else {
-                $('#' + data.todo.todo_id).parent().css("text-decoration", "none");
-            };
+            if(data.result === "success"){
+                $('.msg').text(data.msg);
+                if(data.todo.status == "2"){
+                    $('#' + data.todo.todo_id).parent().css("text-decoration","line-through");
+                } else {
+                    $('#' + data.todo.todo_id).parent().css("text-decoration", "none");
+                };
+            } else if(data.result === "fail"){
+                $('.msg').text(data.msg);
+            }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert(errorThrown);
         })

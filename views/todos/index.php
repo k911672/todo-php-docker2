@@ -16,6 +16,7 @@
         $todoController = new TodoController;
         $todos = $todoController->index();
     ?>
+    <div class="msg"></div>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
         <input type="radio" name="status" value="1" > 未完了
@@ -43,6 +44,8 @@
 
     <a href="./new.php">todo登録</a>
     <script src="../js/main.js"></script>
+
+
 
     <!-- <p>1 GET<?php var_dump($_GET)?></p>
     <p>2 POST<?php var_dump($_POST)?></p>

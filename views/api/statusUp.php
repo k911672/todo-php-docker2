@@ -14,6 +14,7 @@
   $response = array(
     'result' => $result['result'],
     'todo' => $result['todo'],
+    'msg' => $result['msg']
   );
 
 	header("Content-Type: application/json; charset=UTF-8");
