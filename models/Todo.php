@@ -1,10 +1,12 @@
 <?php
 require_once("BaseModel.php");
 
-
-
-
 class Todo extends BaseModel {
+    const STATUS_INCOMPLETE = '1';
+    const STATUS_COMPLETE = '2';
+    const DELETE_INCOMPLETE = 'NULL';
+    const DELETE_COMPLETE = '1';
+
     public static function findAll(){
         try {
             $pdo = BaseModel::dbConnect();
@@ -67,51 +69,76 @@ class Todo extends BaseModel {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $sqlNewsTodos = 'insert into todos(user_id, title, detail, status) value(1, :title, :detail, 0)';
+            $sqlNewsTodos = 'insert into todos(user_id, title, detail, status) value(1, :title, :detail, 1)';
             $stmtNewTodos = $pdo->prepare($sqlNewsTodos);
             $stmtNewTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtNewTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
-            $stmtNewTodos->execute();
-            return true;
+            $result = $stmtNewTodos->execute();
+            return $result;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
-            return false;
+            return $result;
         }
     }
 
     public static function update($data){
         try {
             $pdo = BaseModel::dbConnect();
+            $pdo->beginTransaction();
             echo "接続成功\n";
 
             $sqlEditTodos = 'update todos set title=:title, detail=:detail where id=:id';
-            // $sqlEditTodos = 'update todos set title=:title, detail=:detail, status=:status where id=:id';
             $stmtEditTodos = $pdo->prepare($sqlEditTodos);
             $stmtEditTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':id',$data['todo_id'] , PDO::PARAM_STR);
-            // $stmtEditTodos->bindValue(':status',$data['status'] , PDO::PARAM_STR);
-            $stmtEditTodos->execute();
-            return true;
+            $result = $stmtEditTodos->execute();
+            if( $result ) {
+                $pdo->commit();
+            }
+            return $result;
         } catch(PDOException $e){
             echo "接続失敗\n". $e->getMessage()."\n";
-            return false;
+            $pdo->rollBack();
+            return $result;
         }
     }
 
     public static function updateStatus($data){
         try {
             $pdo = BaseModel::dbConnect();
-            // echo "接続成功\n"; ajaxの戻り値はechoで返すため、ここでechoは使えない。
+            $pdo->beginTransaction();
             $sqlUpdateStatus = 'update todos set status=:status where id=:id';
             $stmtUpdateStatus = $pdo->prepare($sqlUpdateStatus);
             $stmtUpdateStatus->bindValue(':id', $data['todo_id'], PDO::PARAM_STR);
             $stmtUpdateStatus->bindValue(':status', $data["status"], PDO::PARAM_STR);
-            $stmtUpdateStatus->execute();
-            return true;
+            $result = $stmtUpdateStatus->execute();
+            if( $result ) {
+                $pdo->commit();
+            }
+            return $result;
         } catch(PDOException $e){
-            // echo "接続失敗\n". $e->getMessage()."\n";ajaxの戻り値はechoで返すため、ここでechoは使えない。
-            return false;
+            $pdo->rollBack();
+            return $result;
+        }
+    }
+
+    public static function deleteTodo($data){
+        try {
+            $pdo = BaseModel::dbConnect();
+            $pdo->beginTransaction();
+            $sqlDeleteTodo = 'update todos set delete_at=:delete_at where id=:id';
+            $stmtDeleteTodo = $pdo->prepare($sqlDeleteTodo);
+            $stmtDeleteTodo->bindValue(':id', $data['todo_id'], PDO::PARAM_STR);
+            $stmtDeleteTodo->bindValue(':delete_at', $data["delete_at"], PDO::PARAM_STR);
+            $result = $stmtDeleteTodo->execute();
+            if( $result ) {
+                $pdo->commit();
+            }
+            return $result;
+        } catch(PDOException $e){
+            $pdo->rollBack();
+            return $result;
         }
     }
 }

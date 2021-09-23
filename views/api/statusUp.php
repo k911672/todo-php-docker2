@@ -1,6 +1,6 @@
 <?php
   //ステータス更新処理
-  require_once("../../controllers/TodoController.php");
+  require_once("../../controllers/api/TodoController.php");
 
   $todo_id = $_POST['todo_id'];
   $status = $_POST['status'];
@@ -8,7 +8,6 @@
     'todo_id' => $todo_id,
     'status' => $status,
   );
-
 
   $result = TodoController::updateStatus($data);
   $response = array(

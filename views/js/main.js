@@ -1,4 +1,3 @@
-
 $(function(){
     $('input[name="check[]"]').change(function(){
         let status = "1";
@@ -25,6 +24,29 @@ $(function(){
                 };
             } else if(data.result === "fail"){
                 $('.msg').text(data.msg);
+            }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+        })
+    });
+});
+
+$(function(){
+    $('button[name="delete[]"]').click(function(){
+        let delete_at = "1";
+        let todo_id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: "../api/deleteTodo.php",
+            data:{"delete_at" : delete_at, "todo_id" : todo_id },
+            dataType: "json"
+        }).done(function (data) {
+            if(data.result === "success"){
+                alert(data.msg);
+                window.location.reload();
+            } else if(data.result === "fail"){
+                alert(data.msg);
             }
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert(errorThrown);

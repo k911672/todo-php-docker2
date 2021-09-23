@@ -39,6 +39,11 @@
                 <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
             </li>
             <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
+            <button
+                id="<?php echo $todo['id'] ?>"
+                name="delete[]"
+                value="<?php echo $todo['delete_at'] ?>"
+            >削除</button>
         <?php endforeach; ?>
     </ul>
 

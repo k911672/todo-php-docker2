@@ -25,7 +25,7 @@ class TodoController {
     }
 
     private function buildQuery($params){
-        $query = 'select * from todos where user_id = 1';
+        $query = 'select * from todos where user_id = 1 and delete_at is null';
 
         foreach($params as $key => $param){
             if($key === 'title' && !empty($param)){
@@ -71,12 +71,12 @@ class TodoController {
             $validation = new TodoValidation;
             if(!$validation->check($title, $detail)){
                 $_SESSION['errors'] = $validation->errors;
-                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']."&status=0");
+                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']."&status=1");
                 return;
             }
 
             if (!Todo::save($data)){
-                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']."&status=0");
+                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']."&status=1");
             }
 
             header("Location: ../todos/index.php");
@@ -139,40 +139,6 @@ class TodoController {
 
     }
 
-    public static function updateStatus($data){
-
-        if($data['status'] !== "1"  ){
-            if($data['status'] !== "2"){
-                return array(
-                    'result' => "fail",
-                    'todo' => $data,
-                    'msg' => "ステータスが不正です。"
-                );
-            }
-        }
-        if(!is_numeric($data['todo_id']) ){
-            return array(
-                'result' => "fail",
-                'todo' => $data,
-                'msg' => "idが不正です。"
-            );
-        }
-
-        $result = Todo::updateStatus($data);
-
-        if($result){
-            return array(
-                'result' => "success",
-                'todo' => $data,
-                'msg' => "更新が成功しました。"
-            );
-        }
-        return array(
-            'result' => "fail",
-            'todo' => $data,
-            'msg' => "更新に失敗しました。"
-        );
-    }
 }
 
 
