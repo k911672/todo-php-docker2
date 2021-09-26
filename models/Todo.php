@@ -125,12 +125,13 @@ class Todo extends BaseModel {
 
     public static function deleteTodo($data){
         try {
+            $date = date("Y-m-d H:i:s");
             $pdo = BaseModel::dbConnect();
             $pdo->beginTransaction();
             $sqlDeleteTodo = 'update todos set delete_at=:delete_at where id=:id';
             $stmtDeleteTodo = $pdo->prepare($sqlDeleteTodo);
             $stmtDeleteTodo->bindValue(':id', $data['todo_id'], PDO::PARAM_STR);
-            $stmtDeleteTodo->bindValue(':delete_at', $data["delete_at"], PDO::PARAM_STR);
+            $stmtDeleteTodo->bindValue(':delete_at', $date, PDO::PARAM_STR);
             $result = $stmtDeleteTodo->execute();
             if( $result ) {
                 $pdo->commit();

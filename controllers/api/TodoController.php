@@ -38,16 +38,7 @@ class TodoController {
     }
 
     public static function deleteTodo($data){
-        if($data['delete_at'] !== Todo::DELETE_INCOMPLETE){
-            if($data['delete_at'] !== Todo::DELETE_COMPLETE){
-                return array(
-                    'result' => "fail",
-                    'todo' => $data,
-                    'msg' => "ステータスが不正です。"
-                );
-            }
-        }
-        if(!is_numeric($data['todo_id']) ){
+        if(!isset($data['todo_id']) ){
             return array(
                 'result' => "fail",
                 'todo' => $data,

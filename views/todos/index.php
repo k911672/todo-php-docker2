@@ -42,7 +42,6 @@
             <button
                 id="<?php echo $todo['id'] ?>"
                 name="delete[]"
-                value="<?php echo $todo['delete_at'] ?>"
             >削除</button>
         <?php endforeach; ?>
     </ul>
