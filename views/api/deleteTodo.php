@@ -6,7 +6,7 @@
     'todo_id' => $todo_id,
   );
 
-  $result = TodoController::deleteTodo($data);
+  $result = TodoController::delete($data);
   $response = array(
     'result' => $result['result'],
     'msg' => $result['msg']

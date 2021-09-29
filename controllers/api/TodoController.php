@@ -37,7 +37,7 @@ class TodoController {
         );
     }
 
-    public static function deleteTodo($data){
+    public static function delete($data){
         if(!isset($data['todo_id']) ){
             return array(
                 'result' => "fail",
@@ -46,7 +46,7 @@ class TodoController {
             );
         }
 
-        $result = Todo::deleteTodo($data);
+        $result = Todo::delete($data);
 
         if($result){
             return array(

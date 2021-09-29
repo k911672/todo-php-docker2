@@ -123,7 +123,7 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function deleteTodo($data){
+    public static function delete($data){
         try {
             $date = date("Y-m-d H:i:s");
             $pdo = BaseModel::dbConnect();
