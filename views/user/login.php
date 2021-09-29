@@ -29,8 +29,13 @@
 
   <?php
     var_dump($user);
-    if($user[name] === $_GET['name'] && $user[password] === $_GET['password']){
+    if($user['name'] === $_GET['name'] && $user['password'] === $_GET['password']){
       header('Location: ../todos/index.php');
+    }
+    if($user['name'] !== $_GET['name']){
+      if($user['password'] !== $_GET['password']){
+        header("Location: ./login.php?"."name=".$data['name']."&password="."*****");
+      }
     }
   ?>
 
