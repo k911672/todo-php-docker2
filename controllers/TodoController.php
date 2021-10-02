@@ -7,8 +7,8 @@ class LoginController {
     public static $count = 0;
 
     public function login(){
-        $name = $_GET['name'];
-        $password = $_GET['password'];
+        $name = $_POST['name'];
+        $password = $_POST['password'];
         $data = array(
             'name' => $name,
             'password' => $password
