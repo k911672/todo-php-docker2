@@ -12,7 +12,7 @@
 </head>
 <body>
   <?php
-    require_once("../../controllers/TodoController.php");
+    require_once("../../controllers/LoginController.php");
     $data = LoginController::signUp();
 
   ?>

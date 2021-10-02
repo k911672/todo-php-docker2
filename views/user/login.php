@@ -12,10 +12,18 @@
 </head>
 <body>
   <?php
-    require_once("../../controllers/TodoController.php");
+    require_once("../../controllers/LoginController.php");
     $login = new LoginController;
     $user = $login->login();
 
+    if($user['name'] === $_POST['name'] && $user['password'] === $_POST['password']){
+      header('Location: ../todos/index.php');
+    }
+    if($user['name'] !== $_POST['name']){
+      if($user['password'] !== $_POST['password']){
+        header("Location: ./login.php?"."name=".$data['name']."&password="."*****");
+      }
+    }
   ?>
 
   <h1>Login</h1>
@@ -27,16 +35,5 @@
   <br />
   <button><a href="./signUp.php">Sign Up</a></button>
 
-  <?php
-    var_dump($user);
-    if($user['name'] === $_POST['name'] && $user['password'] === $_POST['password']){
-      header('Location: ../todos/index.php');
-    }
-    if($user['name'] !== $_POST['name']){
-      if($user['password'] !== $_POST['password']){
-        header("Location: ./login.php?"."name=".$data['name']."&password="."*****");
-      }
-    }
-  ?>
 
 </body>
