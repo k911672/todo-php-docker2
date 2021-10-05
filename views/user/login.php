@@ -13,17 +13,7 @@
 <body>
   <?php
     require_once("../../controllers/LoginController.php");
-    $login = new LoginController;
-    $user = $login->login();
-
-    if($user['name'] === $_POST['name'] && $user['password'] === $_POST['password']){
-      header('Location: ../todos/index.php');
-    }
-    if($user['name'] !== $_POST['name']){
-      if($user['password'] !== $_POST['password']){
-        header("Location: ./login.php?"."name=".$data['name']."&password="."*****");
-      }
-    }
+    $data = LoginController::login();
   ?>
 
   <h1>Login</h1>
@@ -34,6 +24,12 @@
   </form>
   <br />
   <button><a href="./signUp.php">Sign Up</a></button>
+
+  <?php foreach ($_SESSION['errors'] as $error) :?>
+    <li><?php echo $error ;?></li>
+  <?php endforeach ;?>
+
+
 
 
 </body>

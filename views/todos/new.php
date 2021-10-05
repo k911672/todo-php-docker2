@@ -12,7 +12,7 @@
 
 </head>
 
-<?php 
+<?php
         require("../../controllers/TodoController.php");
         $data = TodoController::new();
 ?>
@@ -26,6 +26,5 @@
 <p><?php echo $data['title'];?></p>
 
 <?php foreach ($_SESSION['errors'] as $error) :?>
-    <li><?php echo $error ;?></li>        
-<?php endforeach ;?>   
-
+    <li><?php echo $error ;?></li>
+<?php endforeach ;?>

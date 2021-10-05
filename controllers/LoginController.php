@@ -1,21 +1,50 @@
 <?php
 
 require_once("../../models/Login.php");
+require_once("../../validations/LoginValidation.php");
 
 class LoginController {
-    const LIMIT = 3;
-    public static $count = 0;
-
     public function login(){
-        $name = $_POST['name'];
-        $password = $_POST['password'];
+        session_start();
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $name = $_POST['name'];
+            $password = $_POST['password'];
+            $_SESSION['name'] = $name;
+            $_SESSION['password'] = $password;
+
+            $data = array(
+                'name' => $name,
+                'password' => $password
+            );
+
+            $user = User::getUserByNameAndPassword($data);
+
+            $validation = new LoginValidation;
+            if(!$validation->loginCheck($data, $user)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/login.php?");
+                return;
+            }
+
+            if($user['name'] === $_POST['name'] && $user['password'] === $_POST['password']){
+                header('Location: ../todos/index.php');
+            }
+        }
+
+        if(empty($_GET['name'])){
+            $_GET['name']="";
+        }
+        if(empty($_GET['password'])){
+            $_GET['password']="";
+        }
+        $name = $_GET['name'];
+        $password = $_GET['password'];
         $data = array(
             'name' => $name,
-            'password' => $password
+            'password' => $password,
         );
+        return $data;
 
-        $login = User::getUserByNameAndPassword($data);
-        return $login;
     }
 
     public static function signUp(){
@@ -38,29 +67,25 @@ class LoginController {
                 'age' => $age,
             );
 
+            $validation = new LoginValidation;
+            if(!$validation->signUpCheck($data)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/signUp.php");
+                return;
+            }
+
             if (!User::save($data)){
-                header("Location: ../user/signUp.php?"."name=".$data['name']."&password=".$data['password']."&mail=".$data['mail']."&age=".$data['age']);
+                header("Location: ../user/signUp.php");
+                return;
             }
 
             header("Location: ../user/login.php");
         }
 
-        if(empty($_GET['name'])){
-            $_GET['name']="";
-        }
-        if(empty($_GET['password'])){
-            $_GET['password']="";
-        }
-        if(empty($_GET['age'])){
-            $_GET['age']="";
-        }
-        if(empty($_GET['mail'])){
-            $_GET['mail']="";
-        }
-        $title = $_GET['name'];
-        $password = $_GET['password'];
-        $age = $_GET['age'];
-        $mail = $_GET['mail'];
+        $name = isset($_GET['name'])? $_GET['name']: "";
+        $password = isset($_GET['password'])? $_GET['password']: "";
+        $age = isset($_GET['age'])? $_GET['age']: "";
+        $mail = isset($_GET['mail'])? $_GET['mail']: "";
         $data = array(
             'name' => $name,
             'password' => $password,
