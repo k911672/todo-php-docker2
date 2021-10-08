@@ -17,18 +17,21 @@ class LoginController {
                 'password' => $password
             );
 
-            $user = User::getUserByNameAndPassword($data);
+            $_SESSION['user'] = User::getUserByNameAndPassword($data);
 
             $validation = new LoginValidation;
-            if(!$validation->loginCheck($data, $user)){
+            if(!$validation->loginCheck($data)){
                 $_SESSION['errors'] = $validation->errors;
                 header("Location: ../user/login.php?");
                 return;
             }
 
-            if($user['name'] === $_POST['name'] && $user['password'] === $_POST['password']){
-                header('Location: ../todos/index.php');
+            if (!isset($_SESSION['user'])) {
+                header('Location: ../user/login.php');
+                return;
             }
+
+            header('Location: ../todos/index.php');
         }
 
         if(empty($_GET['name'])){
