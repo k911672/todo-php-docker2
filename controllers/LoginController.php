@@ -9,15 +9,11 @@ class LoginController {
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $name = $_POST['name'];
             $password = $_POST['password'];
-            $_SESSION['name'] = $name;
-            $_SESSION['password'] = $password;
 
             $data = array(
                 'name' => $name,
                 'password' => $password
             );
-
-            $_SESSION['user'] = User::getUserByNameAndPassword($data);
 
             $validation = new LoginValidation;
             if(!$validation->loginCheck($data)){
@@ -26,6 +22,9 @@ class LoginController {
                 return;
             }
 
+            $_SESSION['user'] = User::getUserByNameAndPassword($data);
+
+            $_SESSION['flg'] = "1";
             if (!isset($_SESSION['user'])) {
                 header('Location: ../user/login.php');
                 return;
@@ -58,10 +57,6 @@ class LoginController {
             $password = $_POST['password'];
             $mail = $_POST['mail'];
             $age = $_POST['age'];
-            $_SESSION['name'] = $name;
-            $_SESSION['password'] = $password;
-            $_SESSION['mail'] = $mail;
-            $_SESSION['age'] = $age;
 
             $data = array(
                 'name' => $name,

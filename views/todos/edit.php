@@ -9,9 +9,19 @@
     <title>Todo</title>
 </head>
 
-<?php 
-        require("../../controllers/TodoController.php");
-        $todo = TodoController::edit();
+<?php
+session_start();
+if($_SESSION['flg_main'] !== "2"){
+    header('Location: ../user/login.php');
+}
+
+require("../../controllers/TodoController.php");
+$todo = TodoController::edit();
+
+$_SESSION = array();
+$_SESSION['flg'] = "1"
+
+
 ?>
 
 <h1>入力フォーム</h1>
@@ -23,5 +33,5 @@
 </form>
 
 <?php foreach ($_SESSION['errors'] as $error) :?>
-    <li><?php echo $error ;?></li>        
-<?php endforeach ;?>   
+    <li><?php echo $error ;?></li>
+<?php endforeach ;?>

@@ -12,10 +12,18 @@
 </head>
 <body>
     <?php
-        require_once("../../controllers/TodoController.php");
-        $todoController = new TodoController;
-        $todos = $todoController->index();
+    session_start();
+    if($_SESSION['flg'] !== "1"){
+        header('Location: ../user/login.php');
+    }
+
+    require_once("../../controllers/TodoController.php");
+    $todoController = new TodoController;
+    $todos = $todoController->index();
+    $_SESSION = array();
+    $_SESSION['flg_main'] = "2"
     ?>
+
     <div class="msg"></div>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
@@ -57,6 +65,8 @@
     <?php foreach ($todos as $todo) : ?>
         <p>4 todos<?php var_dump($todo['status'])?></p>
     <?php endforeach; ?> -->
+
+
 
 
 </body>

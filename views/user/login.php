@@ -12,8 +12,8 @@
 </head>
 <body>
   <?php
-    require_once("../../controllers/LoginController.php");
-    $data = LoginController::login();
+  require_once("../../controllers/LoginController.php");
+  $data = LoginController::login();
   ?>
 
   <h1>Login</h1>
