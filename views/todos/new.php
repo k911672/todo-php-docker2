@@ -14,15 +14,15 @@
 
 <?php
 session_start();
-if($_SESSION['flg_main'] !== "2"){
-    header('Location: ../user/login.php');
-}
+// if($_SESSION['flg_main'] !== "2"){
+//     header('Location: ../user/login.php');
+// }
 
 require("../../controllers/TodoController.php");
 $data = TodoController::new();
 
 $_SESSION = array();
-$_SESSION['flg'] = "1"
+// $_SESSION['flg'] = "1"
 ?>
 
 <h1>入力フォーム</h1>

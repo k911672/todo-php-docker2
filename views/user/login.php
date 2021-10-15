@@ -14,6 +14,8 @@
   <?php
   require_once("../../controllers/LoginController.php");
   $data = LoginController::login();
+
+  var_dump($data);
   ?>
 
   <h1>Login</h1>

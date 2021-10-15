@@ -22,15 +22,19 @@ class LoginController {
                 return;
             }
 
-            $_SESSION['user'] = User::getUserByNameAndPassword($data);
+            $user = User::getUserByNameAndPassword($data);
+            $_SESSION['user'] = $user;
+            // $_SESSION['flg'] = "1";
 
-            $_SESSION['flg'] = "1";
+            // $_SESSION['flg'] = "1";
             if (!isset($_SESSION['user'])) {
                 header('Location: ../user/login.php');
                 return;
             }
 
             header('Location: ../todos/index.php');
+            // header('Location: ../user/login.php');
+            // return $data;
         }
 
         if(empty($_GET['name'])){

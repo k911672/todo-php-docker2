@@ -13,15 +13,10 @@
 <body>
     <?php
     session_start();
-    if($_SESSION['flg'] !== "1"){
-        header('Location: ../user/login.php');
-    }
-
     require_once("../../controllers/TodoController.php");
-    $todoController = new TodoController;
+    $todoController = new TodoController($_SESSION['user']['id']);
     $todos = $todoController->index();
     $_SESSION = array();
-    $_SESSION['flg_main'] = "2"
     ?>
 
     <div class="msg"></div>

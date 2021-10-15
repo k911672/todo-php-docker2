@@ -3,6 +3,14 @@ require_once("../../models/Todo.php");
 require_once("../../validations/TodoValidation.php");
 
 class TodoController {
+    public function __construct($user_id) {
+        foreach ($this->index() as $todo) {
+            if($user_id !== $todo['user_id']){
+                header('Location: ../user/login.php');
+            }
+        }
+    }
+
     public function index() {
         $title = $_GET['title'];
         $status = $_GET['status'];
