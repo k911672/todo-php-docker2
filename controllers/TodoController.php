@@ -3,12 +3,12 @@ require_once("../../models/Todo.php");
 require_once("../../validations/TodoValidation.php");
 
 class TodoController {
-    public function __construct($user_id) {
-        foreach ($this->index() as $todo) {
-            if($user_id !== $todo['user_id']){
-                header('Location: ../user/login.php');
-            }
+    public function __construct() {
+        session_start();
+        if(empty($_SESSION['user']['id'])){
+            header('Location: ../user/login.php');
         }
+        // $_SESSION = array();
     }
 
     public function index() {
@@ -65,6 +65,9 @@ class TodoController {
 
     public static function new(){
         session_start();//ession_start()の位置正しいか今度考える（sessionの値がないと出るため）
+        if(empty($_SESSION['user']['id'])){
+            header('Location: ../user/login.php');
+        }
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $title = $_POST['title'];
@@ -96,6 +99,7 @@ class TodoController {
         if(empty($_GET['detail'])){
             $_GET['detail']="";
         }
+
         $title = $_GET['title'];
         $detail = $_GET['detail'];
         $status = $_GET['status'];
@@ -107,8 +111,12 @@ class TodoController {
         return $data;
     }
 
+    //編集できなくなっているので見直し
     public static function edit(){
         session_start();
+        if(empty($_SESSION['user']['id'])){
+            header('Location: ../user/login.php');
+        }
 
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             $title = $_POST['title'];

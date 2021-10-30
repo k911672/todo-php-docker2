@@ -10,18 +10,9 @@
 </head>
 
 <?php
-// session_start();
-// if($_SESSION['flg_main'] !== "2"){
-//     header('Location: ../user/login.php');
-// }
-
+    //編集できなくなっているので見直し
 require("../../controllers/TodoController.php");
 $todo = TodoController::edit();
-
-// $_SESSION = array();
-// $_SESSION['flg'] = "1"
-
-
 ?>
 
 <h1>入力フォーム</h1>

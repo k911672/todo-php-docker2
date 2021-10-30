@@ -81,6 +81,7 @@ class Todo extends BaseModel {
         }
     }
 
+        //編集できなくなっているので見直し
     public static function update($data){
         try {
             $pdo = BaseModel::dbConnect();

@@ -10,18 +10,9 @@
 </head>
 
 <?php
-session_start();
-// if($_SESSION['flg_main'] !== "2"){
-//     header('Location: ../user/login.php');
-// }
-
 require_once("../../controllers/TodoController.php");
 $todoController = new TodoController;
 $todo = $todoController->detail();
-
-// $_SESSION = array();
-// $_SESSION['flg'] = "1"
-
 ?>
 
 <h1><?php echo $todo['title']; ?></h1>

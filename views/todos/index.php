@@ -12,11 +12,11 @@
 </head>
 <body>
     <?php
-    session_start();
     require_once("../../controllers/TodoController.php");
-    $todoController = new TodoController($_SESSION['user']['id']);
+    $todoController = new TodoController;
     $todos = $todoController->index();
-    $_SESSION = array();
+
+
     ?>
 
     <div class="msg"></div>
