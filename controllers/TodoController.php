@@ -8,7 +8,6 @@ class TodoController {
         if(empty($_SESSION['user']['id'])){
             header('Location: ../user/login.php');
         }
-        // $_SESSION = array();
     }
 
     public function index() {
@@ -64,7 +63,7 @@ class TodoController {
     }
 
     public static function new(){
-        session_start();//ession_start()の位置正しいか今度考える（sessionの値がないと出るため）
+        session_start();
         if(empty($_SESSION['user']['id'])){
             header('Location: ../user/login.php');
         }
@@ -131,20 +130,27 @@ class TodoController {
             $validation = new TodoValidation;
             if(!$validation->check($title, $detail)){
                 $_SESSION['errors'] = $validation->errors;
-                header("Location: ../todos/new.php?"."title=".$data['title']."&detail=".$data['detail']);
+                header("Location: ../todos/edit.php?"."title=".$data['title']."&detail=".$data['detail']);
                 return;
             }
 
             if (!Todo::update($data)){
-                header("Location: ../todos/new.php?"."todo_id=".$data['todo_id']."&title=".$data['title']."&detail=".$data['detail']);
+                header("Location: ../todos/edit.php?"."todo_id=".$data['todo_id']."&title=".$data['title']."&detail=".$data['detail']);
             }
 
             header("Location: ../todos/index.php");
             return $data;
         }
 
+        $title = $_GET['title'];
+        $detail = $_GET['detail'];
         $todo_id = $_GET['todo_id'];
-        if(empty($todo_id)){
+        $data = array(
+            'title' => $title,
+            'detail' => $detail,
+            'todo_id' => $todo_id
+        );
+        if(empty($data['todo_id'])){
             header('Location: ../error/404.php');
         }
 
@@ -152,7 +158,7 @@ class TodoController {
         if(empty($todo)){
             header('Location: ../error/404.php');
         }
-
+        return $data;
     }
 
 }

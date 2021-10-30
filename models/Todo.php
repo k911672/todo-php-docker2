@@ -92,7 +92,7 @@ class Todo extends BaseModel {
             $stmtEditTodos = $pdo->prepare($sqlEditTodos);
             $stmtEditTodos->bindValue(':title', $data['title'], PDO::PARAM_STR);
             $stmtEditTodos->bindValue(':detail', $data['detail'], PDO::PARAM_STR);
-            $stmtEditTodos->bindValue(':id',$data['todo_id'] , PDO::PARAM_STR);
+            $stmtEditTodos->bindValue(':id', $data['todo_id'] , PDO::PARAM_STR);
             $result = $stmtEditTodos->execute();
             if( $result ) {
                 $pdo->commit();

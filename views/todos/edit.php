@@ -20,7 +20,7 @@ $todo = TodoController::edit();
     <input type="text" name="title" placeholder="todoを入力" value="<?php if(isset($todo['title'])){ echo $todo['title'];} ?>"><br />
     <textarea name="detail" placeholder="todoの詳細を記入"><?php if(isset($todo['detail'])){echo $todo['detail'];}?></textarea><br />
     <button type="submit" name="button">登録する</button><br />
-    <input type="hidden" name="todo_id" value="<?php if(isset($todo['id'])){ echo $todo['id'];} ?>"><br />
+    <input type="hidden" name="todo_id" value="<?php echo $todo['todo_id']?>"><br />
 </form>
 
 <?php foreach ($_SESSION['errors'] as $error) :?>
