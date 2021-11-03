@@ -16,6 +16,8 @@
   $data = LoginController::login();
 
   var_dump($data);
+  mail('user@example.com', 'subject1', 'message1');
+
   ?>
 
   <h1>Login</h1>
