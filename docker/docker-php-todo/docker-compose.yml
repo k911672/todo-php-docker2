@@ -25,3 +25,9 @@ services:
       - "3309:3306"
     volumes:
       - ~/naokiapp/michael/todo-php-docker2/docker/docker-php-todo/mysql/db-data:/var/lib/mysql
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    volumes:
+      - "./bin/mhsendmail:/usr/local/bin/mhsendmail"
