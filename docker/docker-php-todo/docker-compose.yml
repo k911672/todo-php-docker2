@@ -8,8 +8,8 @@ services:
       - "80:80"
     depends_on:
       - mysql
+      # - mailhog
     volumes:
-      # - ~/michael-php/todo-php/todo-php-docker:/var/www/app/
       - ~/naokiapp/michael/todo-php-docker2:/var/www/app/
   mysql:
     container_name: mysql-php-todo
@@ -26,6 +26,8 @@ services:
     volumes:
       - ~/naokiapp/michael/todo-php-docker2/docker/docker-php-todo/mysql/db-data:/var/lib/mysql
   mailhog:
+    # container_name: mailhog-php-todo
+    # build: ./mail/
     image: mailhog/mailhog
     ports:
       - "8025:8025"

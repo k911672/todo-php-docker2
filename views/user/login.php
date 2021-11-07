@@ -16,7 +16,15 @@
   $data = LoginController::login();
 
   var_dump($data);
-  mail('user@example.com', 'subject1', 'message1');
+  var_dump(
+    mail(
+      'to@example.com',
+      'TEST MAIL',
+      'This is test mail',
+      'From: from@example.com'
+    )
+  );
+
 
   ?>
 
