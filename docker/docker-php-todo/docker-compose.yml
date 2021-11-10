@@ -1,5 +1,11 @@
 version: '2'
 services:
+  mailhog:
+    container_name: mail-php-todo
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
   web:
     container_name: app-php-todo
     build: ./app/
@@ -25,11 +31,3 @@ services:
       - "3309:3306"
     volumes:
       - ~/naokiapp/michael/todo-php-docker2/docker/docker-php-todo/mysql/db-data:/var/lib/mysql
-  mailhog:
-    # container_name: mailhog-php-todo
-    # build: ./mail/
-    image: mailhog/mailhog
-    ports:
-      - "8025:8025"
-    volumes:
-      - "./bin/mhsendmail:/usr/local/bin/mhsendmail"
