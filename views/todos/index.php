@@ -16,14 +16,6 @@
     $todoController = new TodoController;
     $todos = $todoController->index();
 
-    var_dump(
-        mail(
-            'to@example.com',
-            'TEST MAIL',
-            'This is test mail',
-            'From: from@example.com'
-        )
-    );
 
 
     ?>

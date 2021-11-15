@@ -15,6 +15,9 @@
 <?php
 require("../../controllers/TodoController.php");
 $data = TodoController::new();
+
+
+
 ?>
 
 <h1>入力フォーム</h1>

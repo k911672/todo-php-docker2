@@ -13,6 +13,8 @@
     //編集できなくなっているので見直し
 require("../../controllers/TodoController.php");
 $todo = TodoController::edit();
+
+
 ?>
 
 <h1>入力フォーム</h1>

@@ -15,6 +15,16 @@
     require_once("../../controllers/LoginController.php");
     $data = LoginController::signUp();
 
+    mb_language("Japanese");
+    mb_internal_encoding("UTF-8");
+    var_dump(
+      mb_send_mail(
+        $_POST["mail"],
+        'TEST MAILS',
+        'This is test mails',
+        'From: k911672@gmail.com'
+      )
+    )
   ?>
 
   <h1>Sign Up</h1>
