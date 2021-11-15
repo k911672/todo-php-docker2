@@ -33,6 +33,7 @@
     <input type="text" name="age" placeholder="年齢"><br />
     <input type="email" name="mail" placeholder="メールアドレス"><br />
     <input type="password" name="password" placeholder="パスワード"><br />
+    <input type="hidden" name="token" value="<?php echo uniqid(bin2hex(random_bytes(1))) ?>"><br />
     <button type="submit" name="register">登録</button><br />
   </form>
   <button><a href="./login.php"> 戻る</a></button>
@@ -40,10 +41,5 @@
   <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>
   <?php endforeach ;?>
-
-
-
-
-
 
 </body>

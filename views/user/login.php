@@ -16,10 +16,11 @@
   $data = LoginController::login();
 
 
-  var_dump(random_bytes(1));// 文字コード表に載っているデータ以外のもの（文字化けするもの）
-  var_dump(bin2hex(random_bytes(1)));//バイナリデータをを数値に変換する。
-  var_dump(uniqid(bin2hex(random_bytes(1))));//数値を
-  var_dump(uniqid());//数値を
+  // var_dump(random_bytes(1));// 文字コード表に載っているデータ以外のもの（文字化けするもの）
+  // var_dump(bin2hex(random_bytes(1)));//バイナリデータをを数値に変換する。
+  // var_dump(uniqid(bin2hex(random_bytes(1))));//数値を
+  // var_dump(uniqid());//数値を
+
 
   ?>
 

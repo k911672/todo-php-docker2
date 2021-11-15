@@ -27,12 +27,13 @@ class User extends BaseModel {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $sqlNewUsers = 'insert into users(name, password, mail, age) value(:name, :password, :mail, :age)';
+            $sqlNewUsers = 'insert into users(name, password, mail, age, token) value(:name, :password, :mail, :age, :token)';
             $stmtNewUsers = $pdo->prepare($sqlNewUsers);
             $stmtNewUsers->bindValue(':name', $data['name'], PDO::PARAM_STR);
             $stmtNewUsers->bindValue(':password', $data['password'], PDO::PARAM_STR);
             $stmtNewUsers->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
             $stmtNewUsers->bindValue(':age', $data['age'], PDO::PARAM_STR);
+            $stmtNewUsers->bindValue(':token', $data['token'], PDO::PARAM_STR);
             $result = $stmtNewUsers->execute();
             return $result;
         } catch(PDOException $e){

@@ -50,19 +50,21 @@ class LoginController {
     }
 
     public static function signUp(){
-        session_start();//ession_start()の位置正しいか今度考える（sessionの値がないと出るため）
+        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $name = $_POST['name'];
             $password = $_POST['password'];
             $mail = $_POST['mail'];
             $age = $_POST['age'];
+            $token = $_POST['token'];
 
             $data = array(
                 'name' => $name,
                 'password' => $password,
                 'mail' => $mail,
                 'age' => $age,
+                'token' => $token,
             );
 
             $validation = new LoginValidation;
@@ -84,11 +86,13 @@ class LoginController {
         $password = isset($_GET['password'])? $_GET['password']: "";
         $age = isset($_GET['age'])? $_GET['age']: "";
         $mail = isset($_GET['mail'])? $_GET['mail']: "";
+        $token = isset($_GET['token'])? $_GET['token']: "";
         $data = array(
             'name' => $name,
             'password' => $password,
             'mail' => $mail,
             'age' => $age,
+            'token' => $token,
         );
         return $data;
     }
