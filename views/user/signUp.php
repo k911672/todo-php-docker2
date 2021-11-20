@@ -21,7 +21,7 @@
       mb_send_mail(
         $_POST["mail"],
         'TEST MAILS',
-        '',
+        '登録が完了致しました。',
         'From: k911672@gmail.com'
       )
     )

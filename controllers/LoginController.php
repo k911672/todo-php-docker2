@@ -72,7 +72,7 @@ class LoginController {
                 return;
             }
 
-            header("Location: ../user/login.php");
+            header("Location: ../user/temporaryRegistration.php");
         }
 
         $mail = isset($_GET['mail'])? $_GET['mail']: "";
@@ -90,42 +90,38 @@ class LoginController {
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $name = $_POST['name'];
             $password = $_POST['password'];
-            // $mail = $_POST['mail'];
             $age = $_POST['age'];
             $token = $_POST['token'];
 
             $data = array(
                 'name' => $name,
                 'password' => $password,
-                // 'mail' => $mail,
                 'age' => $age,
                 'token' => $token,
             );
 
             $validation = new LoginValidation;
-            // if(!$validation->signUpCheck($data)){
-            //     $_SESSION['errors'] = $validation->errors;
-            //     header("Location: ../user/signUp.php");
-            //     return;
-            // }
+            if(!$validation->signUpCheck($data)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/signUp.php?token=".$_POST["token"]);//GETパラメーターの記述必要
+                return;
+            }
 
             if (!User::saveCredential($data)){
                 header("Location: ../user/signUp.php?token=".$_POST["token"]);
                 return;
             }
 
-            header("Location: ../user/login.php");
+            header("Location: ../user/registration.php");
         }
 
         $name = isset($_GET['name'])? $_GET['name']: "";
         $password = isset($_GET['password'])? $_GET['password']: "";
         $age = isset($_GET['age'])? $_GET['age']: "";
-        // $mail = isset($_GET['mail'])? $_GET['mail']: "";
         $token = isset($_GET['token'])? $_GET['token']: "";
         $data = array(
             'name' => $name,
             'password' => $password,
-            // 'mail' => $mail,
             'age' => $age,
             'token' => $token,
         );

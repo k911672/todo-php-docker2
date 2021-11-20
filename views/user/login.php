@@ -24,15 +24,16 @@
 
   ?>
 
+
   <h1>Login</h1>
+  <p><?php if (!empty($_POST['email'])) {echo "仮登録が完了致しました。登録したメールページから本登録を完了してください";}  ?></p>
   <form action="./login.php" method="POST">
     <input type="text" name="name" placeholder="名前"><br />
     <input type="password" name="password" placeholder="パスワード"><br />
     <button type="submit" name="register">ログイン</button><br />
   </form>
   <br />
-  <button><a href="./enterEmail.php">enterEmail</a></button>
-  <button><a href="./signUp.php">Sign Up</a></button>
+  <button><a href="./enterEmail.php">Sign Up</a></button>
 
   <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>

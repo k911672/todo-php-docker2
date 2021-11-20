@@ -17,11 +17,15 @@
 
     mb_language("Japanese");
     mb_internal_encoding("UTF-8");
+
+    $headers = "From: k911672@gmail.com";
+    $headers .= "rn";
+    $headers .= "Content-type: text/html; charset=UTF-8";
     var_dump(
       mb_send_mail(
         $_POST["mail"],
         'TEST MAILS',
-        'http://localhost/user/signUp.php?token='.$_POST["token"],
+        "Please click on the URL\n http://localhost/user/signUp.php?token=".$_POST["token"],
         'From: k911672@gmail.com'
       )
     )
