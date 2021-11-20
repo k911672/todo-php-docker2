@@ -45,11 +45,23 @@ class LoginValidation {
         if(mb_strlen($data['password']) < 8){
             $this->errors[] = "パスワードは8字以上でお願いいたします。\n";
         }
-        if(empty($data['mail']) ){
-            $this->errors[] = "メールアドレスをご入力ください\n";
-        }
+        // if(empty($data['mail']) ){
+        //     $this->errors[] = "メールアドレスをご入力ください\n";
+        // }
         if(empty($data['age']) ){
             $this->errors[] = "年齢をご入力ください\n";
+        }
+
+        if(!empty($this->errors)){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function enterEmailCheck($data){
+        if(empty($data['mail']) ){
+            $this->errors[] = "メールアドレスをご入力ください\n";
         }
 
         if(!empty($this->errors)){

@@ -22,17 +22,33 @@ class User extends BaseModel {
         }
     }
 
+    // public static function save($data){
+    //     try {
+    //         $pdo = BaseModel::dbConnect();
+    //         echo "接続成功\n";
+
+    //         $sqlNewUsers = 'insert into users(name, password, mail, age, token) value(:name, :password, :mail, :age, :token)';
+    //         $stmtNewUsers = $pdo->prepare($sqlNewUsers);
+    //         $stmtNewUsers->bindValue(':name', $data['name'], PDO::PARAM_STR);
+    //         $stmtNewUsers->bindValue(':password', $data['password'], PDO::PARAM_STR);
+    //         $stmtNewUsers->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
+    //         $stmtNewUsers->bindValue(':age', $data['age'], PDO::PARAM_STR);
+    //         $stmtNewUsers->bindValue(':token', $data['token'], PDO::PARAM_STR);
+    //         $result = $stmtNewUsers->execute();
+    //         return $result;
+    //     } catch(PDOException $e){
+    //         echo "接続失敗\n". $e->getMessage()."\n";
+    //         return $result;
+    //     }
+    // }
     public static function save($data){
         try {
             $pdo = BaseModel::dbConnect();
             echo "接続成功\n";
 
-            $sqlNewUsers = 'insert into users(name, password, mail, age, token) value(:name, :password, :mail, :age, :token)';
+            $sqlNewUsers = 'insert into users(mail, token) value(:mail, :token)';
             $stmtNewUsers = $pdo->prepare($sqlNewUsers);
-            $stmtNewUsers->bindValue(':name', $data['name'], PDO::PARAM_STR);
-            $stmtNewUsers->bindValue(':password', $data['password'], PDO::PARAM_STR);
             $stmtNewUsers->bindValue(':mail', $data['mail'], PDO::PARAM_STR);
-            $stmtNewUsers->bindValue(':age', $data['age'], PDO::PARAM_STR);
             $stmtNewUsers->bindValue(':token', $data['token'], PDO::PARAM_STR);
             $result = $stmtNewUsers->execute();
             return $result;

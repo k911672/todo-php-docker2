@@ -31,6 +31,7 @@
     <button type="submit" name="register">ログイン</button><br />
   </form>
   <br />
+  <button><a href="./enterEmail.php">enterEmail</a></button>
   <button><a href="./signUp.php">Sign Up</a></button>
 
   <?php foreach ($_SESSION['errors'] as $error) :?>

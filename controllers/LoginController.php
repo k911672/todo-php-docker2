@@ -46,7 +46,42 @@ class LoginController {
             'password' => $password,
         );
         return $data;
+    }
 
+    public static function enterEmail(){
+        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $mail = $_POST['mail'];
+            $token = $_POST['token'];
+
+            $data = array(
+                'mail' => $mail,
+                'token' => $token,
+            );
+
+            $validation = new LoginValidation;
+            if(!$validation->enterEmailCheck($data)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/enterEmail.php");
+                return;
+            }
+
+            if (!User::save($data)){
+                header("Location: ../user/enterEmail.php");
+                return;
+            }
+
+            header("Location: ../user/login.php");
+        }
+
+        $mail = isset($_GET['mail'])? $_GET['mail']: "";
+        $token = isset($_GET['token'])? $_GET['token']: "";
+        $data = array(
+            'mail' => $mail,
+            'token' => $token,
+        );
+        return $data;
     }
 
     public static function signUp(){
