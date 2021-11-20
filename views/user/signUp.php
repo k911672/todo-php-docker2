@@ -31,8 +31,8 @@
   <form action="./signUp.php" method="POST">
     <input type="text" name="name" placeholder="名前"><br />
     <input type="text" name="age" placeholder="年齢"><br />
-    <!-- <input type="email" name="mail" placeholder="メールアドレス"><br /> -->
     <input type="password" name="password" placeholder="パスワード"><br />
+    <input type="hidden" name="token" value="<?php echo $_GET['token'] ?>"><br />
     <button type="submit" name="register">登録</button><br />
   </form>
   <button><a href="./login.php"> 戻る</a></button>

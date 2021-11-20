@@ -67,7 +67,7 @@ class LoginController {
                 return;
             }
 
-            if (!User::save($data)){
+            if (!User::saveEmail($data)){
                 header("Location: ../user/enterEmail.php");
                 return;
             }
@@ -90,27 +90,27 @@ class LoginController {
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $name = $_POST['name'];
             $password = $_POST['password'];
-            $mail = $_POST['mail'];
+            // $mail = $_POST['mail'];
             $age = $_POST['age'];
             $token = $_POST['token'];
 
             $data = array(
                 'name' => $name,
                 'password' => $password,
-                'mail' => $mail,
+                // 'mail' => $mail,
                 'age' => $age,
                 'token' => $token,
             );
 
             $validation = new LoginValidation;
-            if(!$validation->signUpCheck($data)){
-                $_SESSION['errors'] = $validation->errors;
-                header("Location: ../user/signUp.php");
-                return;
-            }
+            // if(!$validation->signUpCheck($data)){
+            //     $_SESSION['errors'] = $validation->errors;
+            //     header("Location: ../user/signUp.php");
+            //     return;
+            // }
 
-            if (!User::save($data)){
-                header("Location: ../user/signUp.php");
+            if (!User::saveCredential($data)){
+                header("Location: ../user/signUp.php?token=".$_POST["token"]);
                 return;
             }
 
@@ -120,12 +120,12 @@ class LoginController {
         $name = isset($_GET['name'])? $_GET['name']: "";
         $password = isset($_GET['password'])? $_GET['password']: "";
         $age = isset($_GET['age'])? $_GET['age']: "";
-        $mail = isset($_GET['mail'])? $_GET['mail']: "";
+        // $mail = isset($_GET['mail'])? $_GET['mail']: "";
         $token = isset($_GET['token'])? $_GET['token']: "";
         $data = array(
             'name' => $name,
             'password' => $password,
-            'mail' => $mail,
+            // 'mail' => $mail,
             'age' => $age,
             'token' => $token,
         );
