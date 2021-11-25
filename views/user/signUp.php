@@ -14,20 +14,14 @@
   <?php
     require_once("../../controllers/LoginController.php");
     $data = LoginController::signUp();
+    $user = LoginController::checkExistingUser();
 
-    mb_language("Japanese");
-    mb_internal_encoding("UTF-8");
-    var_dump(
-      mb_send_mail(
-        $_POST["mail"],
-        'TEST MAILS',
-        '登録が完了致しました。',
-        'From: k911672@gmail.com'
-      )
-    )
   ?>
 
   <h1>Sign Up</h1>
+  <?php if(isset($user['name'])) :?>
+    <div><?php echo $user['name'] ;?> はすでに登録されています。<br> 登録の変更を行う場合のみ進行お願い致します。</div>
+  <?php endif ;?>
   <form action="./signUp.php" method="POST">
     <input type="text" name="name" placeholder="名前"><br />
     <input type="text" name="age" placeholder="年齢"><br />

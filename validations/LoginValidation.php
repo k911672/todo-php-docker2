@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../models/Login.php");
+require_once("../../models/User.php");
 
 
 class LoginValidation {

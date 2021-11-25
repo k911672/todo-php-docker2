@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../models/Login.php");
+require_once("../../models/User.php");
 require_once("../../validations/LoginValidation.php");
 
 class LoginController {
@@ -112,7 +112,7 @@ class LoginController {
                 return;
             }
 
-            header("Location: ../user/registration.php");
+            header("Location: ../user/completeRegistration.php");
         }
 
         $name = isset($_GET['name'])? $_GET['name']: "";
@@ -126,6 +126,12 @@ class LoginController {
             'token' => $token,
         );
         return $data;
+    }
+
+    public function checkExistingUser(){
+        $token = $_GET["token"];
+        $user = User::getUserNameByToken($token);
+        return $user;
     }
 }
 
