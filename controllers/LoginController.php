@@ -2,6 +2,7 @@
 
 require_once("../../models/User.php");
 require_once("../../validations/LoginValidation.php");
+require_once("../../controllers/libs/Mail.php");
 
 class LoginController {
     public function login(){
@@ -71,6 +72,13 @@ class LoginController {
                 header("Location: ../user/enterEmail.php");
                 return;
             }
+
+            $mail = new Mail;
+            $mail->to = $data['mail'];
+            $mail->subject = 'TEST MAILS';
+            $mail->message = "Please click on the URL\n http://localhost/user/signUp.php?token=".$data['token'];
+            $mail->headers = 'From: k911672@gmail.com';
+            $mail->send();
 
             header("Location: ../user/temporaryRegistration.php");
         }
