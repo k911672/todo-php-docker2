@@ -76,7 +76,10 @@ class LoginController {
             $mail = new Mail;
             $mail->to = $data['mail'];
             $mail->subject = 'TEST MAILS';
-            $mail->message = "Please click on the URL\n http://localhost/user/signUp.php?token=".$data['token'];
+            $mail->message = <<< EOM
+            Please click on the URL
+            http://localhost/user/signUp.php?token={$data['token']}
+            EOM;
             $mail->headers = 'From: k911672@gmail.com';
             $mail->send();
 
