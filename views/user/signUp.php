@@ -19,9 +19,6 @@
   ?>
 
   <h1>Sign Up</h1>
-  <?php if(isset($user['name'])) :?>
-    <div><?php echo $user['name'] ;?> はすでに登録されています。<br> 登録の変更を行う場合のみ進行お願い致します。</div>
-  <?php endif ;?>
   <form action="./signUp.php" method="POST">
     <input type="text" name="name" placeholder="名前"><br />
     <input type="text" name="age" placeholder="年齢"><br />

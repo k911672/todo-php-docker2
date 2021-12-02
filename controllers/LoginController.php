@@ -139,10 +139,108 @@ class LoginController {
         return $data;
     }
 
-    public function checkExistingUser(){
+    public static function editNameAndPassword(){
+        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $name = $_POST['name'];
+            $password = $_POST['password'];
+            $token = $_POST['token'];
+            $user = User::getUserNameByToken($token);
+            $age = $user['age'];
+
+            $data = array(
+                'name' => $name,
+                'password' => $password,
+                'age' => $age,
+                'token' => $token,
+            );
+
+            $validation = new LoginValidation;
+            if(!$validation->signUpCheck($data)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/signUp.php?token=".$_POST["token"]);//GETパラメーターの記述必要
+                return;
+            }
+
+            if (!User::saveCredential($data)){
+                header("Location: ../user/signUp.php?token=".$_POST["token"]);
+                return;
+            }
+
+            header("Location: ../user/completeRegistration.php");
+        }
+
+        $name = isset($_GET['name'])? $_GET['name']: "";
+        $password = isset($_GET['password'])? $_GET['password']: "";
+        $age = isset($_GET['age'])? $_GET['age']: "";
+        $token = isset($_GET['token'])? $_GET['token']: "";
+        $data = array(
+            'name' => $name,
+            'password' => $password,
+            'age' => $age,
+            'token' => $token,
+        );
+        return $data;
+    }
+
+    public static function checkExistingUser(){
         $token = $_GET["token"];
         $user = User::getUserNameByToken($token);
-        return $user;
+        if(isset($user['name'])){
+            header("Location: ../user/alreadyRegistration.php?name=".$user["name"]);
+        }
+    }
+
+    public static function checkExistingMail(){
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $mail = $_POST["mail"];
+            $user = User::getUserByEnterMail($mail);
+            if (isset($user['mail'])){
+                header("Location: ../user/alreadyRegistration.php?mail=".$user["mail"]);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function userAuthenticationByMail(){
+        session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
+
+        if($_SERVER["REQUEST_METHOD"] === "POST"){
+            $mail = $_POST['mail'];
+            $data = array(
+                'mail' => $mail,
+            );
+
+            $validation = new LoginValidation;
+            if(!$validation->enterEmailCheck($data)){
+                $_SESSION['errors'] = $validation->errors;
+                header("Location: ../user/userAuthenticationByMail.php");
+                return;
+            }
+
+            $user = User::getUserByEnterMail($mail);
+
+            $mail = new Mail;
+            $mail->to = $user['mail'];
+            $mail->subject = 'TEST MAILS';
+            $mail->message = <<< EOM
+            Please click on the URL
+            http://localhost/user/editNameAndPassword.php?token={$user['token']}
+            EOM;
+            $mail->headers = 'From: k911672@gmail.com';
+            $mail->send();
+
+            header("Location: ../user/completeSending.php");
+        }
+
+        $mail = isset($_GET['mail'])? $_GET['mail']: "";
+        $data = array(
+            'mail' => $mail,
+            'token' => $token,
+        );
+        return $data;
     }
 }
 

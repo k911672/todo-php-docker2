@@ -40,6 +40,24 @@ class User extends BaseModel {
         }
     }
 
+    public static function getUserByEnterMail($mail){
+        try {
+            $pdo = BaseModel::dbConnect();
+            echo "接続成功\n";
+
+            $sqlUsers = 'select * from users where mail=:mail';
+            $stmtUsers = $pdo->prepare($sqlUsers);
+            $stmtUsers->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $stmtUsers->execute();
+            $pdo = $stmtUsers->fetch();
+
+            return $pdo;
+        } catch(PDOException $e){
+            echo "接続失敗\n". $e->getMessage()."\n";
+            return;
+        }
+    }
+
     public static function saveEmail($data){
         try {
             $pdo = BaseModel::dbConnect();
