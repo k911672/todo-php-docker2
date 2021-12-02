@@ -26,8 +26,8 @@
   </form>
   <br />
   <button><a href="./enterEmail.php">Sign Up</a></button><br />
-  <a href="./userAuthenticationByMail.php">ユーザー名・パスワードの変更</a>
-  <a href="./userAuthenticationByMail.php">メールアドレスの変更</a>
+  <a href="./userAuthByMail.php">ユーザー名・パスワードの変更</a>
+  <a href="./userAuthByMail.php">メールアドレスの変更</a>
 
   <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>

@@ -13,12 +13,12 @@
 <body>
   <?php
     require_once("../../controllers/LoginController.php");
-    LoginController::userAuthenticationByMail();
+    LoginController::userAuthByMail();
 
   ?>
 
   <h1>Please enter your registered email !</h1>
-  <form action="./userAuthenticationByMail.php" method="POST">
+  <form action="./userAuthByMail.php" method="POST">
     <input type="email" name="mail" placeholder="メールアドレス"><br />
     <button type="submit" name="register">送信</button><br />
   </form>

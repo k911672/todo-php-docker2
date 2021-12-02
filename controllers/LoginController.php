@@ -204,7 +204,7 @@ class LoginController {
         return false;
     }
 
-    public static function userAuthenticationByMail(){
+    public static function userAuthByMail(){
         session_start();//session_start()の位置正しいか今度考える（sessionの値がないと出るため）
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -216,7 +216,7 @@ class LoginController {
             $validation = new LoginValidation;
             if(!$validation->enterEmailCheck($data)){
                 $_SESSION['errors'] = $validation->errors;
-                header("Location: ../user/userAuthenticationByMail.php");
+                header("Location: ../user/userAuthByMail.php");
                 return;
             }
 
