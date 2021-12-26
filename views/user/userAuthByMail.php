@@ -12,8 +12,8 @@
 </head>
 <body>
   <?php
-    require_once("../../controllers/LoginController.php");
-    LoginController::userAuthByMail();
+    require_once("../../controllers/UserController.php");
+    UserController::userAuthByMail();
 
   ?>
 

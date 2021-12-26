@@ -12,8 +12,8 @@
 </head>
 <body>
   <?php
-    require_once("../../controllers/LoginController.php");
-    LoginController::userAuthByRegisteredInfo();
+    require_once("../../controllers/UserController.php");
+    UserController::userAuthByRegisteredInfo();
 
   ?>
 

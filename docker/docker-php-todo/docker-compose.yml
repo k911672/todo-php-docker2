@@ -14,7 +14,6 @@ services:
       - "80:80"
     depends_on:
       - mysql
-      # - mailhog
     volumes:
       - ~/naokiapp/michael/todo-php-docker2:/var/www/app/
   mysql:

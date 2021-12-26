@@ -12,11 +12,10 @@
 </head>
 <body>
   <?php
-  require_once("../../controllers/LoginController.php");
-  $data = LoginController::editNameAndPassword();
+  require_once("../../controllers/UserController.php");
+  $data = UserController::editNameAndPassword();
 
   ?>
-
 
   <h1>Change your Information!</h1>
   <form action="./editNameAndPassword.php" method="POST">

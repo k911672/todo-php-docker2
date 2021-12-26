@@ -12,8 +12,8 @@
 </head>
 <body>
   <?php
-  require_once("../../controllers/LoginController.php");
-  $data = LoginController::editMail();
+  require_once("../../controllers/UserController.php");
+  $data = UserController::editMail();
 
   ?>
 
