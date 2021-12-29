@@ -13,7 +13,7 @@
 <body>
   <?php
   require_once("../../controllers/UserController.php");
-  $data = UserController::editMail();
+  $data = UserController::edit();
 
   ?>
 

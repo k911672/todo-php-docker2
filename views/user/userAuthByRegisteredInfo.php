@@ -13,7 +13,8 @@
 <body>
   <?php
     require_once("../../controllers/UserController.php");
-    UserController::userAuthByRegisteredInfo();
+    // UserController::userAuthByRegisteredInfo();
+    UserController::checkAuth();
 
   ?>
 

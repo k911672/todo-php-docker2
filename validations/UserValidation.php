@@ -6,7 +6,7 @@ require_once("../../models/User.php");
 class UserValidation {
     public $errors;
 
-    public function editNameAndPassword($data){
+    public function editNameAndPasswordCheck($data){
         if(empty($data['name'])){
             $this->errors[] = "ユーザー名をご入力ください。\n";
         }
@@ -30,7 +30,7 @@ class UserValidation {
         return true;
     }
 
-    public function editMail($data){
+    public function editMailCheck($data){
         if(empty($data['mail']) ){
             $this->errors[] = "メールアドレスをご入力ください\n";
         }
