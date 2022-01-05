@@ -143,6 +143,24 @@ class Todo extends BaseModel {
             return $result;
         }
     }
+
+    public static function changePage(){
+        try {
+            $pdo = BaseModel::dbConnect();
+            echo "接続成功\n";
+
+            $sqlChangePage = 'select count(*) as cnt from todos';
+            $stmtChangePage = $pdo->prepare($sqlChangePage);
+            $stmtChangePage->execute();
+            $pdo = $stmtChangePage->fetch(PDO::FETCH_ASSOC);
+            $maxPage = ceil($pdo['cnt']/5);
+
+            return $maxPage;
+        } catch(PDOException $e){
+            echo "接続失敗\n". $e->getMessage()."\n";
+            return;
+        }
+    }
 }
 
 
