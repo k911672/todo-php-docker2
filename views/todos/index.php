@@ -16,6 +16,7 @@
     $todoController = new TodoController;
     $todos = $todoController->index();
     $pageData = $todoController->changePage();
+    $allTodo = count($todos)
     ?>
 
     <!-- ソート機能 -->
@@ -31,23 +32,41 @@
 
     <!-- todo表示 -->
     <ul>
-        <?php foreach ($todos as $todo) : ?>
-            <li class="todo">
-                <input
-                    type="checkbox"
+        <!-- <?php foreach ($todos as $index => $todo) : ?>
+                <li class="todo">
+                    <input
+                        type="checkbox"
+                        id="<?php echo $todo['id'] ?>"
+                        name="check[]"
+                        value="<?php echo $todo['status'] ?>"
+                        <?php if ($todo['status'] == 2) { echo "checked='checked'"; } ?>
+                    >
+                    <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
+                </li>
+                <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
+                <button
                     id="<?php echo $todo['id'] ?>"
-                    name="check[]"
-                    value="<?php echo $todo['status'] ?>"
-                    <?php if ($todo['status'] == 2) { echo "checked='checked'"; } ?>
-                >
-                <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
-            </li>
-            <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
-            <button
-                id="<?php echo $todo['id'] ?>"
-                name="delete[]"
-            >削除</button>
-        <?php endforeach; ?>
+                    name="delete[]"
+                >削除</button>
+        <?php endforeach; ?> -->
+
+        <?php for ($i = $pageData['fromRecord'] - 1; $i < $pageData['toRecord']; $i++):?>
+                <li class="todo">
+                    <input
+                        type="checkbox"
+                        id="<?php echo $todos[$i]['id'] ?>"
+                        name="check[]"
+                        value="<?php echo $todos[$i]['status'] ?>"
+                        <?php if ($todos[$i]['status'] == 2) { echo "checked='checked'"; } ?>
+                    >
+                    <a href="./detail.php?todo_id=<?php echo $todos[$i]['id']?>"><?php echo $todos[$i]['title']; ?></a>
+                </li>
+                <button><a href="./edit.php?todo_id=<?php echo $todos[$i]['id'];?>">編集</a></button>
+                <button
+                    id="<?php echo $todos[$i]['id'] ?>"
+                    name="delete[]"
+                >削除</button>
+        <?php endfor; ?>
     </ul>
 
     <!-- todoの登録画面へのボタン -->
@@ -56,7 +75,7 @@
     <!-- ページネーション追加 -->
     <div class = "pagination">
         <p class="from_to"><?php echo $pageData['$allTodo']; ?>件中 <?php echo $pageData['fromRecord']; ?> - <?php echo $pageData['toRecord'];?> 件目を表示</p>
-        
+
         <!-- 戻るボタン -->
         <?php if ($pageData['page'] >= 2): ?>
             <a href="index.php?page=<?php echo($pageData['page'] - 1); ?>" class="page_feed">&laquo;</a>
