@@ -15,11 +15,9 @@
     require_once("../../controllers/TodoController.php");
     $todoController = new TodoController;
     $todos = $todoController->index();
-    
-
-
     ?>
 
+    <!-- ソート機能 -->
     <div class="msg"></div>
     <form action="./index.php" method="GET">
         <input type="text" name="title" placeholder="検索"><br />
@@ -30,6 +28,7 @@
         <button type="submit" name="submit">検索</button>
     </form>
 
+    <!-- todo表示 -->
     <ul>
         <?php foreach ($todos as $todo) : ?>
             <li class="todo">
@@ -50,6 +49,7 @@
         <?php endforeach; ?>
     </ul>
 
+    <!-- todoの登録画面へのボタン -->
     <a href="./new.php">todo登録</a>
     <script src="../js/main.js"></script>
 
