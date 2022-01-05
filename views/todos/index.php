@@ -15,6 +15,7 @@
     require_once("../../controllers/TodoController.php");
     $todoController = new TodoController;
     $todos = $todoController->index();
+    $pageData = $todoController->changePage();
     ?>
 
     <!-- ソート機能 -->
@@ -51,7 +52,36 @@
 
     <!-- todoの登録画面へのボタン -->
     <a href="./new.php">todo登録</a>
-    <script src="../js/main.js"></script>
+
+    <!-- ページネーション追加 -->
+    <div class = "pagination">
+        <p class="from_to"><?php echo $pageData['$allTodo']; ?>件中 <?php echo $pageData['fromRecord']; ?> - <?php echo $pageData['toRecord'];?> 件目を表示</p>
+        
+        <!-- 戻るボタン -->
+        <?php if ($pageData['page'] >= 2): ?>
+            <a href="index.php?page=<?php echo($pageData['page'] - 1); ?>" class="page_feed">&laquo;</a>
+        <?php else:?>
+            <span class="first_last_page">&laquo;</span>
+        <?php endif; ?>
+
+        <!-- ページ数の表示（ページのmax値までループ、現在のページとループした値が同じなら通常、それ以外はGETパラメーター付きのリンクをつける） -->
+        <?php for ($i = 1; $i <= $pageData['maxPage']; $i++) : ?>
+            <?php if($i >= $pageData['page'] - $pageData['range'] && $i <= $pageData['page'] + $pageData['range']) : ?>
+                <?php if($i == $pageData['page']) : ?>
+                    <span class="now_page_number"><?php echo $i; ?></span>
+                <?php else: ?>
+                    <a href="?page=<?php echo $i; ?>" class="page_number"><?php echo $i; ?></a>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endfor; ?>
+
+        <!-- 進むボタン -->
+        <?php if($pageData['page'] < $pageData['maxPage']) : ?>
+            <a href="index.php?page=<?php echo($pageData['page'] + 1); ?>" class="page_feed">&raquo;</a>
+        <?php else : ?>
+            <span class="first_last_page">&raquo;</span>
+        <?php endif; ?>
+    </div>
 
 
 
@@ -62,7 +92,5 @@
         <p>4 todos<?php var_dump($todo['status'])?></p>
     <?php endforeach; ?> -->
 
-
-
-
+    <script src="../js/main.js"></script>
 </body>

@@ -110,7 +110,6 @@ class TodoController {
         return $data;
     }
 
-    //編集できなくなっているので見直し
     public static function edit(){
         session_start();
         if(empty($_SESSION['user']['id'])){
@@ -159,6 +158,52 @@ class TodoController {
             header('Location: ../error/404.php');
         }
         return $data;
+    }
+
+    public static function changePage(){
+        $countTodo = Todo::count();
+
+        $page = 1;
+        //最大ページ数の取得
+        // $maxPage = ceil($countTodo['cnt'] / 5);
+        $maxPage = ceil($countTodo['cnt'] / 1);
+        //todoの総数の取得
+        $allTodo = $countTodo['cnt'];
+
+        //$_GET['page']に値がなければ1ページとする
+        if(isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        //表示させるページ範囲の指定
+        if($page == 1 || $page == $maxPage) {
+            $range = 4;
+        } elseif ($page == 2 || $page == $maxPage - 1) {
+            $range = 3;
+        } else {
+            $range = 2;
+        }
+
+        //○件目と表示
+        $fromRecord = ($page - 1) * 5 + 1;
+        if($page == $maxPage && $allTodo % 5 !== 0) {
+            $toRecord = ($page - 1) * 5 + $allTodo % 5;
+        } else {
+            $toRecord = $page * 5;
+        }
+
+        $pageData = [
+            'page' => $page,
+            'maxPage' => $maxPage,
+            '$allTodo' => $allTodo,
+            'range' => $range,
+            'fromRecord' => $fromRecord,
+            'toRecord' => $toRecord,
+        ];
+
+        return $pageData;
     }
 
 }
