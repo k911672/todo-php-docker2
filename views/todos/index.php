@@ -32,7 +32,6 @@
 
     <!-- todo表示 -->
     <ul>
-
         <?php for ($i = $pageData['fromRecord'] - 1; $i < $pageData['toRecord']; $i++):?>
                 <li class="todo">
                     <input
