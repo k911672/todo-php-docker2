@@ -27,8 +27,104 @@ class TodoController {
             $todos = Todo::findByQuery($query);
         }
 
-        return $todos;
+        $countTodo = Todo::count();
+
+        $page = 1;
+        //最大ページ数の取得
+        $maxPage = ceil($countTodo['cnt'] / 5);
+        // $maxPage = ceil($countTodo['cnt'] / 1);
+        //todoの総数の取得
+        $allTodo = $countTodo['cnt'];
+
+        //$_GET['page']に値がなければ1ページとする
+        if(isset($_GET['page']) && is_numeric($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        //表示させるページ範囲の指定
+        if($page == 1 || $page == $maxPage) {
+            $range = 4;
+        } elseif ($page == 2 || $page == $maxPage - 1) {
+            $range = 3;
+        } else {
+            $range = 2;
+        }
+
+        //○件目と表示
+        $fromRecord = ($page - 1) * 5 + 1;
+        if($page == $maxPage && $allTodo % 5 !== 0) {
+            $toRecord = ($page - 1) * 5 + $allTodo % 5;
+        } else {
+            $toRecord = $page * 5;
+        }
+
+        $pageData = [
+            'page' => $page,
+            'maxPage' => $maxPage,
+            '$allTodo' => $allTodo,
+            'range' => $range,
+            'fromRecord' => $fromRecord,
+            'toRecord' => $toRecord,
+        ];
+
+        // return $pageData;
+
+        // return $todos;
+
+        return $data = [
+            'todos' => $todos,
+            'pageData' => $pageData
+        ];
     }
+
+    // public static function changePage(){
+    //     $countTodo = Todo::count();
+
+    //     $page = 1;
+    //     //最大ページ数の取得
+    //     $maxPage = ceil($countTodo['cnt'] / 5);
+    //     // $maxPage = ceil($countTodo['cnt'] / 1);
+    //     //todoの総数の取得
+    //     $allTodo = $countTodo['cnt'];
+
+    //     //$_GET['page']に値がなければ1ページとする
+    //     if(isset($_GET['page']) && is_numeric($_GET['page'])) {
+    //         $page = $_GET['page'];
+    //     } else {
+    //         $page = 1;
+    //     }
+
+    //     //表示させるページ範囲の指定
+    //     if($page == 1 || $page == $maxPage) {
+    //         $range = 4;
+    //     } elseif ($page == 2 || $page == $maxPage - 1) {
+    //         $range = 3;
+    //     } else {
+    //         $range = 2;
+    //     }
+
+    //     //○件目と表示
+    //     $fromRecord = ($page - 1) * 5 + 1;
+    //     if($page == $maxPage && $allTodo % 5 !== 0) {
+    //         $toRecord = ($page - 1) * 5 + $allTodo % 5;
+    //     } else {
+    //         $toRecord = $page * 5;
+    //     }
+
+    //     $pageData = [
+    //         'page' => $page,
+    //         'maxPage' => $maxPage,
+    //         '$allTodo' => $allTodo,
+    //         'range' => $range,
+    //         'fromRecord' => $fromRecord,
+    //         'toRecord' => $toRecord,
+    //     ];
+
+    //     return $pageData;
+    // }
+
 
     private function buildQuery($params){
         $query = 'select * from todos where user_id = 1 and delete_at is null';
@@ -160,51 +256,51 @@ class TodoController {
         return $data;
     }
 
-    public static function changePage(){
-        $countTodo = Todo::count();
+    // public static function changePage(){
+    //     $countTodo = Todo::count();
 
-        $page = 1;
-        //最大ページ数の取得
-        $maxPage = ceil($countTodo['cnt'] / 5);
-        // $maxPage = ceil($countTodo['cnt'] / 1);
-        //todoの総数の取得
-        $allTodo = $countTodo['cnt'];
+    //     $page = 1;
+    //     //最大ページ数の取得
+    //     $maxPage = ceil($countTodo['cnt'] / 5);
+    //     // $maxPage = ceil($countTodo['cnt'] / 1);
+    //     //todoの総数の取得
+    //     $allTodo = $countTodo['cnt'];
 
-        //$_GET['page']に値がなければ1ページとする
-        if(isset($_GET['page']) && is_numeric($_GET['page'])) {
-            $page = $_GET['page'];
-        } else {
-            $page = 1;
-        }
+    //     //$_GET['page']に値がなければ1ページとする
+    //     if(isset($_GET['page']) && is_numeric($_GET['page'])) {
+    //         $page = $_GET['page'];
+    //     } else {
+    //         $page = 1;
+    //     }
 
-        //表示させるページ範囲の指定
-        if($page == 1 || $page == $maxPage) {
-            $range = 4;
-        } elseif ($page == 2 || $page == $maxPage - 1) {
-            $range = 3;
-        } else {
-            $range = 2;
-        }
+    //     //表示させるページ範囲の指定
+    //     if($page == 1 || $page == $maxPage) {
+    //         $range = 4;
+    //     } elseif ($page == 2 || $page == $maxPage - 1) {
+    //         $range = 3;
+    //     } else {
+    //         $range = 2;
+    //     }
 
-        //○件目と表示
-        $fromRecord = ($page - 1) * 5 + 1;
-        if($page == $maxPage && $allTodo % 5 !== 0) {
-            $toRecord = ($page - 1) * 5 + $allTodo % 5;
-        } else {
-            $toRecord = $page * 5;
-        }
+    //     //○件目と表示
+    //     $fromRecord = ($page - 1) * 5 + 1;
+    //     if($page == $maxPage && $allTodo % 5 !== 0) {
+    //         $toRecord = ($page - 1) * 5 + $allTodo % 5;
+    //     } else {
+    //         $toRecord = $page * 5;
+    //     }
 
-        $pageData = [
-            'page' => $page,
-            'maxPage' => $maxPage,
-            '$allTodo' => $allTodo,
-            'range' => $range,
-            'fromRecord' => $fromRecord,
-            'toRecord' => $toRecord,
-        ];
+    //     $pageData = [
+    //         'page' => $page,
+    //         'maxPage' => $maxPage,
+    //         '$allTodo' => $allTodo,
+    //         'range' => $range,
+    //         'fromRecord' => $fromRecord,
+    //         'toRecord' => $toRecord,
+    //     ];
 
-        return $pageData;
-    }
+    //     return $pageData;
+    // }
 
 }
 
