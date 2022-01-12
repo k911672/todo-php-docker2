@@ -32,7 +32,6 @@ class TodoController {
         $page = 1;
         //最大ページ数の取得
         $maxPage = ceil($countTodo['cnt'] / 5);
-        // $maxPage = ceil($countTodo['cnt'] / 1);
         //todoの総数の取得
         $allTodo = $countTodo['cnt'];
 
@@ -68,10 +67,6 @@ class TodoController {
             'fromRecord' => $fromRecord,
             'toRecord' => $toRecord,
         ];
-
-        // return $pageData;
-
-        // return $todos;
 
         return $data = [
             'todos' => $todos,
@@ -210,11 +205,5 @@ class TodoController {
     }
 
 }
-
-
-
-
-
-
 
 ?>
