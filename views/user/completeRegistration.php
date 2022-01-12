@@ -11,8 +11,6 @@
     <title>Todo</title>
 </head>
 <body>
-
   <div>登録が完了致しました。</div>
   <button><a href="./login.php">戻る</a></button>
-
 </body>

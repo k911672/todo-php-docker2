@@ -22,7 +22,7 @@
     <input type="email" name="mail" placeholder="メールアドレス"><br />
     <button type="submit" name="register">送信</button><br />
   </form>
-  <button><a href="./login.php"> 戻る</a></button>
+  <button><a href="./login.php">戻る</a></button>
 
   <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>

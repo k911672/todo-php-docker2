@@ -32,23 +32,6 @@
 
     <!-- todo表示 -->
     <ul>
-        <!-- <?php foreach ($todos as $index => $todo) : ?>
-                <li class="todo">
-                    <input
-                        type="checkbox"
-                        id="<?php echo $todo['id'] ?>"
-                        name="check[]"
-                        value="<?php echo $todo['status'] ?>"
-                        <?php if ($todo['status'] == 2) { echo "checked='checked'"; } ?>
-                    >
-                    <a href="./detail.php?todo_id=<?php echo $todo['id']?>"><?php echo $todo['title']; ?></a>
-                </li>
-                <button><a href="./edit.php?todo_id=<?php echo $todo['id'];?>">編集</a></button>
-                <button
-                    id="<?php echo $todo['id'] ?>"
-                    name="delete[]"
-                >削除</button>
-        <?php endforeach; ?> -->
 
         <?php for ($i = $pageData['fromRecord'] - 1; $i < $pageData['toRecord']; $i++):?>
                 <li class="todo">

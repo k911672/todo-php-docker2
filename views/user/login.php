@@ -33,6 +33,4 @@
     <li><?php echo $error ;?></li>
   <?php endforeach ;?>
 
-
-
 </body>

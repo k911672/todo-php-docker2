@@ -14,7 +14,6 @@
   <?php
   require_once("../../controllers/UserController.php");
   $data = UserController::edit();
-
   ?>
 
   <h1>Change your Information!</h1>
@@ -30,8 +29,4 @@
   <?php foreach ($_SESSION['errors'] as $error) :?>
     <li><?php echo $error ;?></li>
   <?php endforeach ;?>
-
-
-
-
 </body>
