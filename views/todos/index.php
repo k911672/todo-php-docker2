@@ -17,8 +17,6 @@
     $data = $todoController->index();
     $todos = $data['todos'];
     $pageData = $data['pageData'];
-    // $pageData = $todoController->changePage();
-    // $allTodo = count($todos)
     ?>
 
     <!-- ソート機能 -->
