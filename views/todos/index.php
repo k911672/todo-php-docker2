@@ -56,7 +56,7 @@
 
     <!-- ページネーション追加 -->
     <div class = "pagination">
-        <p class="from_to"><?php echo $pageData['$allTodo']; ?>件中 <?php echo $pageData['fromRecord']; ?> - <?php echo $pageData['toRecord'];?> 件目を表示</p>
+        <p class="from_to"><?php echo $pageData['$total']; ?>件中 <?php echo $pageData['fromRecord']; ?> - <?php echo $pageData['toRecord'];?> 件目を表示</p>
 
         <!-- 戻るボタン -->
         <?php if ($pageData['page'] >= 2): ?>
