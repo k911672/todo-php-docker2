@@ -6,6 +6,7 @@ class Todo extends BaseModel {
     const STATUS_COMPLETE = '2';
     const DELETE_INCOMPLETE = 'NULL';
     const DELETE_COMPLETE = '1';
+    const LIMIT = 5;
 
     public static function findAll(){
         try {

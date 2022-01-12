@@ -31,7 +31,7 @@ class TodoController {
 
         $page = 1;
         //最大ページ数の取得
-        $maxPage = ceil($countTodo / 5);
+        $maxPage = ceil($countTodo / Todo::LIMIT);
         //todoの総数の取得
         $total = $countTodo;
 
@@ -52,11 +52,11 @@ class TodoController {
         }
 
         //○件目と表示
-        $fromRecord = ($page - 1) * 5 + 1;
-        if($page == $maxPage && $total % 5 !== 0) {
-            $toRecord = ($page - 1) * 5 + $total % 5;
+        $fromRecord = ($page - 1) * Todo::LIMIT + 1;
+        if($page == $maxPage && $total % Todo::LIMIT !== 0) {
+            $toRecord = ($page - 1) * Todo::LIMIT + $total % Todo::LIMIT;
         } else {
-            $toRecord = $page * 5;
+            $toRecord = $page * Todo::LIMIT;
         }
 
         $pageData = [
