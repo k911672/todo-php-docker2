@@ -27,13 +27,13 @@ class TodoController {
             $todos = Todo::findByQuery($query);
         }
 
-        $countTodo = Todo::count();
+        $countTodo = count($todos);
 
         $page = 1;
         //最大ページ数の取得
-        $maxPage = ceil($countTodo['cnt'] / 5);
+        $maxPage = ceil($countTodo / 5);
         //todoの総数の取得
-        $allTodo = $countTodo['cnt'];
+        $allTodo = $countTodo;
 
         //$_GET['page']に値がなければ1ページとする
         if(isset($_GET['page']) && is_numeric($_GET['page'])) {

@@ -144,22 +144,6 @@ class Todo extends BaseModel {
         }
     }
 
-    public static function count(){
-        try {
-            $pdo = BaseModel::dbConnect();
-            echo "接続成功\n";
-
-            $sqlCount = 'select count(*) as cnt from todos where delete_at is null';
-            $stmtCount = $pdo->prepare($sqlCount);
-            $stmtCount->execute();
-            $pdo = $stmtCount->fetch(PDO::FETCH_ASSOC);
-            return $pdo;
-
-        } catch(PDOException $e){
-            echo "接続失敗\n". $e->getMessage()."\n";
-            return;
-        }
-    }
 }
 
 
