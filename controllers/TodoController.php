@@ -11,11 +11,11 @@ class TodoController {
     }
 
     public function index() {
-        $title = $_GET['title'];
-        $status = $_GET['status'];
-        $row = $_GET['row'];//空の時どうするか？
+        $title = isset($_GET['title']) ? $_GET['title'] : '';
+        $status = isset($_GET['status']) ? $_GET['status'] : '' ;
+        $row = isset($_GET['row']) ? $_GET['row'] : '' ;
 
-        if(!$_GET['title'] && !$_GET['row'] && !$_GET['status']){
+        if(empty($title) && empty($status) && empty($row)){
             $todos = Todo::findAll();
         } else {
             $params = array(
@@ -67,6 +67,10 @@ class TodoController {
             'fromRecord' => $fromRecord,
             'toRecord' => $toRecord,
         ];
+
+        if($_SERVER['REQUEST_METHOD'] !== "GET"){
+            header('Location: ../error/404.php');
+        }
 
         return $data = [
             'todos' => $todos,

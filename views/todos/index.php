@@ -84,14 +84,12 @@
         <?php endif; ?>
     </div>
 
-
-
-    <p>1 GET<?php var_dump($_GET)?></p>
+    <!-- <p>1 GET<?php var_dump($_GET)?></p>
     <p>2 POST<?php var_dump($_POST)?></p>
     <p>3 todos<?php var_dump($todos)?></p>
     <?php foreach ($todos as $todo) : ?>
         <p>4 todos<?php var_dump($todo['status'])?></p>
-    <?php endforeach; ?>
+    <?php endforeach; ?> -->
 
     <script src="../js/main.js"></script>
 </body>
