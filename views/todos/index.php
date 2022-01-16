@@ -17,7 +17,6 @@
     $data = $todoController->index();
     $todos = $data['todos'];
     $pageData = $data['pageData'];
-    $todoDetail = $todoController->readCSV();//CSVの読み取り終わったら消す
     ?>
 
     <!-- ソート機能 -->
@@ -86,16 +85,15 @@
     </div>
     <form action="./index.php" method="GET">
         <button type="submit" name="csv">CSV作成</button>
+        <div><?php if(isset($_GET['csv'])){echo 'CSVファイルが作成されました。' ;}?></div>
     </form>
 
     <!-- <p>1 GET<?php var_dump($_GET)?></p>
-    <p>2 POST<?php var_dump($_POST)?></p> -->
-    <!-- <p>3 todos<?php var_dump($todos)?></p> -->
-    <!-- <?php foreach ($todos as $todo) : ?>
+    <p>2 POST<?php var_dump($_POST)?></p>
+    <p>3 todos<?php var_dump($todos)?></p>
+    <?php foreach ($todos as $todo) : ?>
         <p>4 todos<?php var_dump($todo['status'])?></p>
     <?php endforeach; ?> -->
-    <p>5 todoDetail<?php var_dump($todoDetail)//CSVの読み取り終わったら消す
-    ?></p>
 
     <script src="../js/main.js"></script>
 </body>

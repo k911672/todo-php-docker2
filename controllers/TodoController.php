@@ -72,6 +72,31 @@ class TodoController {
             header('Location: ../error/404.php');
         }
 
+        //CSV ファイル作成
+        if(isset($_GET['csv'])){
+            $output_file = "../csv/test.csv";
+            $dir = dirname($output_file);
+            if(!file_exists($output_file)){
+                mkdir($dir, 0700, true);
+            }
+
+            $fp_write = fopen($output_file, "w");
+            $todos = Todo::findAll();
+            $title = "";
+            foreach ($todos as $key => $todo) {
+                if($key === 0){
+                    foreach ($todo as $column => $value) {
+                        $title .= $column.",";
+                    }
+                    $title= rtrim($title, ",");
+                    $title .= "\n";
+                    fwrite($fp_write, $title);
+                };
+                fputcsv($fp_write, $todo);
+            }
+            fclose($fp_write);
+        }
+
         return $data = [
             'todos' => $todos,
             'pageData' => $pageData
@@ -206,32 +231,6 @@ class TodoController {
             header('Location: ../error/404.php');
         }
         return $data;
-    }
-
-    public static function readCSV(){
-        if(isset($_GET['csv'])){
-            $output_file = "../csv/test.csv";
-            $dir = dirname($output_file);
-            if(!file_exists($output_file)){
-                mkdir($dir, 0700, true);
-            }
-
-            $fp_write = fopen($output_file, "w");
-            $todos = Todo::findAll();
-            $title = "";
-            foreach ($todos as $key => $todo) {
-                if($key === 0){
-                    foreach ($todo as $column => $value) {
-                        $title .= $column.",";
-                    }
-                    $title= rtrim($title, ",");
-                    $title .= "\n";
-                    fwrite($fp_write, $title);
-                };
-                fputcsv($fp_write, $todo);
-            }
-            fclose($fp_write);
-        }
     }
 
 }
