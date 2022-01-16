@@ -209,34 +209,30 @@ class TodoController {
     }
 
     public static function readCSV(){
-        $input_file = "./csv/dev/fruits/fruits.csv";
-        $output_file = "./csv/dev/fruits/fruitsDetail.csv";
-        // $fp_read = fopen($input_file , "r");// 読み取り箇所（ここを修正）
+        if(isset($_GET['csv'])){
+            $output_file = "../csv/test.csv";
+            $dir = dirname($output_file);
+            if(!file_exists($output_file)){
+                mkdir($dir, 0700, true);
+            }
 
-        $fp_write = fopen($output_file, "w");
-        // $filename = basename($fp_read);// ファイルの名前を取り出し（ここは多分いらない）
-        // $dir = dirname($fp_read);//ファイルのパスを取得（ここは多分いらない）
-
-        // if(!file_exists($input_file)){//新しいディレクトリの作成（ここを修正）
-        //     mkdir($dir, 0700, true);
-        // }
-
-        // while ($line = fgets($fp_read)) {//読み取ったデータを列ごとに取り出し（ここを修正）
-        //     $fruitsInfo = array(trim($line), rand(1,3)*100, rand(0,999));
-        //     var_dump($fruitsInfo);
-        //     $lines = implode(',' , $fruitsInfo);
-        //     fwrite($fp_write , $lines. "\n");
-        // }
-
-        // if(file_exists($input_file)){//ファイル名をfruitsDetail.csvからfruits.csvに変更しているここもいらない
-        //     unlink($input_file);
-        //     rename($output_file, $input_file);
-        // }
-
-        fclose($fp_read);
-        fclose($fp_write);
+            $fp_write = fopen($output_file, "w");
+            $todos = Todo::findAll();
+            $title = "";
+            foreach ($todos as $key => $todo) {
+                if($key === 0){
+                    foreach ($todo as $column => $value) {
+                        $title .= $column.",";
+                    }
+                    $title= rtrim($title, ",");
+                    $title .= "\n";
+                    fwrite($fp_write, $title);
+                };
+                fputcsv($fp_write, $todo);
+            }
+            fclose($fp_write);
+        }
     }
-
 
 }
 
